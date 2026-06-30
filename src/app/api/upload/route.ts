@@ -11,10 +11,11 @@ export async function POST(req: Request) {
     const formData = await req.formData();
     const title = formData.get('title') as string;
     const jdFile = formData.get('jd') as File;
-    const candidatesFile = formData.get('candidates') as File;
+    const candidatesFile = formData.get('candidates') as File | null;
+    const reindex = formData.get('reindex') === 'true';
 
-    if (!jdFile || !candidatesFile) {
-      return NextResponse.json({ error: 'Missing JD or Candidates file' }, { status: 400 });
+    if (!jdFile) {
+      return NextResponse.json({ error: 'Missing Job Description file' }, { status: 400 });
     }
 
     // Working directories
@@ -35,8 +36,10 @@ export async function POST(req: Request) {
     const jdBuffer = Buffer.from(await jdFile.arrayBuffer());
     fs.writeFileSync(jdTempPath, jdBuffer);
 
-    const candBuffer = Buffer.from(await candidatesFile.arrayBuffer());
-    fs.writeFileSync(candTempPath, candBuffer);
+    if (candidatesFile && candidatesFile.size > 0) {
+      const candBuffer = Buffer.from(await candidatesFile.arrayBuffer());
+      fs.writeFileSync(candTempPath, candBuffer);
+    }
 
     // Locate the virtual environment Python interpreter
     const pythonExe = path.join(workDir, '.venv', 'Scripts', 'python.exe');
@@ -59,21 +62,42 @@ export async function POST(req: Request) {
       return NextResponse.json({ success: false, logs: executionLogs, error: 'JD Parsing failed' }, { status: 500 });
     }
 
-    // Step 2: build_index.py
-    executionLogs.push("[SYSTEM] Executing build_index.py (Calculating SentenceTransformer embeddings)...");
-    const indexCmd = `"${pythonExe}" build_index.py "${candTempPath}"`;
-    try {
-      const { stdout, stderr } = await execPromise(indexCmd, { cwd: workDir });
-      if (stdout) executionLogs.push(stdout.trim());
-      if (stderr) executionLogs.push(`[WARN] ${stderr.trim()}`);
-    } catch (err: any) {
-      executionLogs.push(`[ERROR] Indexing failed: ${err.message}`);
-      return NextResponse.json({ success: false, logs: executionLogs, error: 'Embedding Indexing failed' }, { status: 500 });
+    // Step 2: build_index.py or embed_jd.py
+    const hasCache = fs.existsSync(path.join(cacheDir, 'candidate_features.parquet'));
+    
+    if (reindex && candidatesFile && candidatesFile.size > 0) {
+      executionLogs.push("[SYSTEM] Executing build_index.py (Rebuilding full candidate index)...");
+      const indexCmd = `"${pythonExe}" build_index.py "${candTempPath}"`;
+      try {
+        const { stdout, stderr } = await execPromise(indexCmd, { cwd: workDir });
+        if (stdout) executionLogs.push(stdout.trim());
+        if (stderr) executionLogs.push(`[WARN] ${stderr.trim()}`);
+      } catch (err: any) {
+        executionLogs.push(`[ERROR] Indexing failed: ${err.message}`);
+        return NextResponse.json({ success: false, logs: executionLogs, error: 'Embedding Indexing failed' }, { status: 500 });
+      }
+    } else if (!hasCache) {
+      return NextResponse.json({ error: 'Precomputed candidate index not found. Please upload candidates.jsonl and check "Rebuild Semantic Index" first.' }, { status: 400 });
+    } else {
+      executionLogs.push("[SYSTEM] Skipping candidate index rebuild. Running embed_jd.py to encode JD...");
+      const embedCmd = `"${pythonExe}" embed_jd.py`;
+      try {
+        const { stdout, stderr } = await execPromise(embedCmd, { cwd: workDir });
+        if (stdout) executionLogs.push(stdout.trim());
+        if (stderr) executionLogs.push(`[WARN] ${stderr.trim()}`);
+      } catch (err: any) {
+        executionLogs.push(`[ERROR] JD Embedding failed: ${err.message}`);
+        return NextResponse.json({ success: false, logs: executionLogs, error: 'JD Embedding failed' }, { status: 500 });
+      }
     }
 
     // Step 3: rank.py
     executionLogs.push("[SYSTEM] Executing rank.py (Vectorized ranking & scoring)...");
-    const rankCmd = `"${pythonExe}" rank.py --candidates "${candTempPath}" --jd "${jdTempPath}" --out "submission.csv"`;
+    const candPath = (candidatesFile && candidatesFile.size > 0) 
+      ? candTempPath 
+      : path.join(process.cwd(), 'docs', 'given doc', 'candidates.jsonl');
+      
+    const rankCmd = `"${pythonExe}" rank.py --candidates "${candPath}" --jd "${jdTempPath}" --out "submission.csv"`;
     try {
       const { stdout, stderr } = await execPromise(rankCmd, { cwd: workDir });
       if (stdout) executionLogs.push(stdout.trim());
