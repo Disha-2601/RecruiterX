@@ -2,231 +2,300 @@
 
 import React, { useState, useEffect } from 'react';
 import { Sliders, AlertTriangle, CheckCircle, Info, ChevronRight, HelpCircle } from 'lucide-react';
+import rankedCandidatesData from '../data/ranked_candidates.json';
 
-interface Candidate {
-  id: string;
-  name: string;
-  statedRole: string;
-  trajectory: 'ACCELERATING' | 'STEADY' | 'PLATEAUED' | 'DECLINING';
-  baseTrajectoryScore: number;
-  baseBehaviourScore: number;
-  baseDepthScore: number;
-  redFlags: Array<{ type: string; severity: 'high' | 'medium' | 'low'; text: string }>;
-  insiderSignals: { present: string[]; absent: string[]; score: number };
-  narrative: string;
-  questions: string[];
+interface CandidateRecord {
+  candidate_id: string;
+  rank: number;
+  score: number;
+  reasoning: string;
+  anonymized_name: string;
+  years_of_experience: number;
+  current_title: string;
+  current_company: string;
+  location: string;
+  notice_period_days: number;
+  preferred_work_mode: string;
+  skill_match: number;
+  experience_fit: number;
+  behavioral: number;
+  education: number;
+  logistics_fit: number;
+  consistency_penalty: number;
+  has_expert_low_duration: boolean;
+  has_yoe_mismatch: boolean;
+  has_overlap: boolean;
+  has_assessment_mismatch: boolean;
+  has_suspicious_uniformity: boolean;
 }
 
-const mockCandidates: Candidate[] = [
-  {
-    id: '1',
-    name: 'Alex Mercer',
-    statedRole: 'Senior ML Engineer (Applying for Staff)',
-    trajectory: 'ACCELERATING',
-    baseTrajectoryScore: 96,
-    baseBehaviourScore: 92,
-    baseDepthScore: 94,
-    redFlags: [],
-    insiderSignals: {
-      present: ['NCCL ring collective communication design', 'CUDA custom kernel implementations', 'Tuning attention layers'],
-      absent: ['Standard Scikit-learn API usage only'],
-      score: 92
-    },
-    narrative: 'Trajectory shows rapid title progression and increasing system complexity. Behaviour signals reflect high ownership and focus on production scale. Highly technical answers regarding GPU clusters correlate with a Staff-level mindset.',
-    questions: [
-      'You worked on multi-node GPU training. What specific optimization did you apply to NCCL collective communication to reduce gradient sync overhead?',
-      'How did you avoid shared memory bank conflicts in your custom CUDA kernel for attention scaling?',
-      'What was the exact hardware failure mode in your 512-GPU ring topology, and how did your orchestration layer recover?'
-    ]
-  },
-  {
-    id: '2',
-    name: 'Jordan Vance',
-    statedRole: 'Lead React Developer (Applying for Lead)',
-    trajectory: 'PLATEAUED',
-    baseTrajectoryScore: 48,
-    baseBehaviourScore: 56,
-    baseDepthScore: 32,
-    redFlags: [
-      { type: 'Title Inflation', severity: 'high', text: 'Claims lead responsibility but achievements represent routine component creation.' },
-      { type: 'Job Hopper', severity: 'medium', text: '3 moves within 24 months with flat scope.' }
-    ],
-    insiderSignals: {
-      present: ['Basic REST consumption', 'Component styling'],
-      absent: ['Shader performance optimization', 'Webpack custom compilation overrides', 'Rendering loops'],
-      score: 34
-    },
-    narrative: 'Candidate claims Lead title but work history reflects routine task execution. High pride index on basic git configurations. Significant gap in expected insider knowledge for high-scale frontend systems.',
-    questions: [
-      'You mentioned configuring Webpack from scratch on Next.js. Next.js uses Turbopack/SWC compiler natively. What specific config did you override and why?',
-      'Can you detail the rendering lifecycle of a React Server Component versus a Client Component under Next.js 14 App Router?',
-      'How did you optimize paint times and reduce layout shifts in your 3D canvas implementation?'
-    ]
-  }
-];
-
 export default function DashboardDemo() {
-  const [trajWeight, setTrajWeight] = useState(40);
-  const [behWeight, setBehWeight] = useState(30);
-  const [depthWeight, setDepthWeight] = useState(30);
-  const [activeCandidateId, setActiveCandidateId] = useState<string>('1');
+  const [skillWeight, setSkillWeight] = useState(40);
+  const [expWeight, setExpWeight] = useState(25);
+  const [behavWeight, setBehWeight] = useState(20);
+  const [eduWeight, setEduWeight] = useState(8);
+  const [logWeight, setLogWeight] = useState(7);
+  
+  const [activeCandidateId, setActiveCandidateId] = useState<string>('');
+  const [candidates, setCandidates] = useState<any[]>([]);
 
-  const [candidates, setCandidates] = useState<Array<Candidate & { calculatedScore: number }>>([]);
-
-  // Recalculate scores when weights change
+  // Initialize active candidate
   useEffect(() => {
-    const total = trajWeight + behWeight + depthWeight;
-    const wTraj = trajWeight / total;
-    const wBeh = behWeight / total;
-    const wDepth = depthWeight / total;
+    if (rankedCandidatesData && rankedCandidatesData.length > 0) {
+      setActiveCandidateId(rankedCandidatesData[0].candidate_id);
+    }
+  }, []);
 
-    const updated = mockCandidates.map(c => {
-      const score = Math.round(
-        c.baseTrajectoryScore * wTraj +
-        c.baseBehaviourScore * wBeh +
-        c.baseDepthScore * wDepth
+  // Recalculate scores and re-sort when weights change
+  useEffect(() => {
+    const total = skillWeight + expWeight + behavWeight + eduWeight + logWeight;
+    const wSkill = skillWeight / (total || 1);
+    const wExp = expWeight / (total || 1);
+    const wBehav = behavWeight / (total || 1);
+    const wEdu = eduWeight / (total || 1);
+    const wLog = logWeight / (total || 1);
+
+    const updated = (rankedCandidatesData as CandidateRecord[]).map(c => {
+      const rawScore = (
+        c.skill_match * wSkill +
+        c.experience_fit * wExp +
+        c.behavioral * wBehav +
+        c.education * wEdu +
+        c.logistics_fit * wLog
       );
+      // Final composite score applying the consistency penalty
+      const calculatedScore = Math.round(rawScore * (1.0 - c.consistency_penalty) * 100);
+      
+      // Map Red Flags
+      const redFlags = [];
+      if (c.has_expert_low_duration) {
+        redFlags.push({ type: 'Expert Low Duration', severity: 'high' as const, text: 'Claims expert proficiency in core skills with low duration.' });
+      }
+      if (c.has_yoe_mismatch) {
+        redFlags.push({ type: 'YoE Mismatch', severity: 'high' as const, text: 'Stated years of experience does not align with career history duration.' });
+      }
+      if (c.has_overlap) {
+        redFlags.push({ type: 'Employment Overlap', severity: 'medium' as const, text: 'Overlapping career timeline detected (potential double employment).' });
+      }
+      if (c.has_assessment_mismatch) {
+        redFlags.push({ type: 'Test Mismatch', severity: 'medium' as const, text: 'Verified assessment scores contradict self-reported expertise.' });
+      }
+      if (c.has_suspicious_uniformity) {
+        redFlags.push({ type: 'Suspicious Uniformity', severity: 'low' as const, text: 'Uniform expert/advanced proficiency across all listed skills.' });
+      }
+
+      // Trajectory classification based on experience fit
+      const trajectory = c.experience_fit > 0.85 ? 'ACCELERATING' : c.experience_fit > 0.65 ? 'STEADY' : c.experience_fit > 0.45 ? 'PLATEAUED' : 'DECLINING';
+
+      // Verified signals
+      const present = [
+        `Verified Experience: ${c.years_of_experience} Years`,
+        `Preferred Mode: ${c.preferred_work_mode.toUpperCase()}`,
+        `Location Fit: ${c.location} (${c.preferred_work_mode === 'onsite' ? 'Onsite' : c.preferred_work_mode === 'hybrid' ? 'Hybrid' : 'Flexible'})`,
+        `Notice Period: ${c.notice_period_days} Days`
+      ];
+      const absent = [];
+      if (c.consistency_penalty > 0) {
+        absent.push(`Consistency Penalty: -${Math.round(c.consistency_penalty * 100)}% Applied`);
+      } else {
+        absent.push("No consistency anomalies detected");
+      }
+
+      // Custom generated screening questions
+      const questions = [
+        `Your profile indicates a ${c.notice_period_days}-day notice period. Can you confirm if you are eligible for an immediate buyout or joining within 30 days?`,
+        `Given the hybrid requirement (2 days/week in Pune/Noida), how does relocating to or commuting within ${c.location} fit into your timeline?`,
+        `Regarding your experience in ${c.current_title} at ${c.current_company}: can you explain the technical architecture of your retrieval model and the choice of vector DB?`
+      ];
+
       return {
         ...c,
-        calculatedScore: score
+        id: c.candidate_id,
+        name: c.anonymized_name || c.candidate_id,
+        statedRole: `${c.current_title} at ${c.current_company}`,
+        trajectory,
+        calculatedScore,
+        baseTrajectoryScore: Math.round(c.experience_fit * 100),
+        baseBehaviourScore: Math.round(c.behavioral * 100),
+        baseDepthScore: Math.round(c.skill_match * 100),
+        baseEducationScore: Math.round(c.education * 100),
+        baseLogisticsScore: Math.round(c.logistics_fit * 100),
+        redFlags,
+        insiderSignals: {
+          present,
+          absent,
+          score: Math.round((1 - c.consistency_penalty) * 100)
+        },
+        narrative: c.reasoning,
+        questions
       };
     });
 
-    updated.sort((a, b) => b.calculatedScore - a.calculatedScore);
+    // Sort by calculatedScore desc, then candidate_id asc
+    updated.sort((a, b) => {
+      if (b.calculatedScore !== a.calculatedScore) {
+        return b.calculatedScore - a.calculatedScore;
+      }
+      return a.id.localeCompare(b.id);
+    });
+
     setCandidates(updated);
-  }, [trajWeight, behWeight, depthWeight]);
+  }, [skillWeight, expWeight, behavWeight, eduWeight, logWeight]);
 
   const activeCandidate = candidates.find(c => c.id === activeCandidateId) || candidates[0];
 
   const getTrajectoryBadgeStyles = (trajectory: string) => {
     switch (trajectory) {
       case 'ACCELERATING':
-        return 'bg-[#F0F4FF] text-[#0000FF] border-[#0000FF]/20';
+        return 'bg-blue-50 text-blue-700 border-blue-200';
       case 'STEADY':
-        return 'bg-[#FAFAFA] text-[#4A4A4A] border-[#E5E5E5]';
+        return 'bg-green-50 text-green-700 border-green-200';
       case 'PLATEAUED':
-        return 'bg-[#FFFBF0] text-[#C47D10] border-[#C47D10]/20';
+        return 'bg-yellow-50 text-yellow-700 border-yellow-200';
       case 'DECLINING':
-        return 'bg-[#FFF5F5] text-[#D4382C] border-[#D4382C]/20';
+        return 'bg-red-50 text-red-700 border-red-200';
       default:
-        return 'bg-[#FAFAFA] text-[#4A4A4A] border-[#E5E5E5]';
+        return 'bg-gray-50 text-gray-700 border-gray-200';
     }
   };
 
   const getScoreColorClass = (score: number) => {
-    if (score >= 70) return 'text-[#0000FF]';
-    if (score >= 40) return 'text-[#C47D10]';
-    return 'text-[#D4382C]';
+    if (score >= 70) return 'text-blue-600';
+    if (score >= 50) return 'text-yellow-600';
+    return 'text-red-600';
   };
 
   const getScoreBgClass = (score: number) => {
-    if (score >= 70) return 'bg-[#0000FF]';
-    if (score >= 40) return 'bg-[#C47D10]';
-    return 'bg-[#D4382C]';
+    if (score >= 70) return 'bg-blue-600';
+    if (score >= 50) return 'bg-yellow-600';
+    return 'bg-red-600';
   };
 
   return (
-    <div className="w-full grid grid-cols-1 lg:grid-cols-12 gap-8 text-[#0A0A0A] font-mono text-sm max-w-6xl mx-auto">
+    <div className="w-full grid grid-cols-1 lg:grid-cols-12 gap-8 text-[#0A0A0A] font-mono text-sm max-w-6xl mx-auto p-4 sm:p-6 bg-white rounded-xl shadow-lg border border-neutral-100">
       
       {/* Sidebar / Controls Panel (col-span-4) */}
-      <div className="lg:col-span-4 rounded-md border border-[#0000FF] bg-[#FAFAFA] p-6 flex flex-col justify-between shadow-sm">
+      <div className="lg:col-span-4 rounded-lg border border-neutral-200 bg-neutral-50 p-6 flex flex-col justify-between shadow-sm">
         <div>
-          <div className="flex items-center gap-2 mb-4 border-b border-[#E5E5E5] pb-3">
-            <Sliders className="w-4 h-4 text-[#0000FF]" />
-            <h3 className="font-display font-bold text-xs uppercase tracking-wider text-[#0A0A0A]">
+          <div className="flex items-center gap-2 mb-4 border-b border-neutral-200 pb-3">
+            <Sliders className="w-4 h-4 text-blue-600" />
+            <h3 className="font-sans font-bold text-xs uppercase tracking-wider text-[#0A0A0A]">
               DECISION_WEIGHTS
             </h3>
           </div>
           
-          <p className="text-xs text-[#4A4A4A] leading-relaxed mb-6 font-mono">
-            Adjust weighting dimensions. Recruiter-X dynamically calculates match scores and re-ranks the pool in real-time.
+          <p className="text-xs text-neutral-600 leading-relaxed mb-6 font-mono">
+            Adjust components weighting. The ranker dynamically calculates matching scores and re-ranks the candidates shortlist in real-time.
           </p>
 
-          <div className="space-y-6">
-            {/* Trajectory Slider */}
-            <div className="space-y-2">
-              <div className="flex justify-between text-xs font-bold text-[#4A4A4A]">
-                <span>TRAJECTORY_PROGRESSION</span>
-                <span className="text-[#0000FF] font-data">{trajWeight}%</span>
+          <div className="space-y-4">
+            {/* Skill Match Slider */}
+            <div className="space-y-1">
+              <div className="flex justify-between text-xs font-bold text-neutral-700">
+                <span>SKILL_MATCH</span>
+                <span className="text-blue-600 font-sans">{skillWeight}%</span>
               </div>
               <input
                 type="range"
                 min="0"
                 max="100"
-                value={trajWeight}
-                onChange={(e) => setTrajWeight(Number(e.target.value))}
-                className="w-full accent-[#0000FF]"
+                value={skillWeight}
+                onChange={(e) => setSkillWeight(Number(e.target.value))}
+                className="w-full accent-blue-600"
               />
-              <span className="text-[10px] text-[#8C8C8C] block leading-tight">
-                Seniority acceleration speed vs career age.
-              </span>
             </div>
 
-            {/* Behaviour Signal Slider */}
-            <div className="space-y-2">
-              <div className="flex justify-between text-xs font-bold text-[#4A4A4A]">
+            {/* Experience Fit Slider */}
+            <div className="space-y-1">
+              <div className="flex justify-between text-xs font-bold text-neutral-700">
+                <span>EXPERIENCE_FIT</span>
+                <span className="text-blue-600 font-sans">{expWeight}%</span>
+              </div>
+              <input
+                type="range"
+                min="0"
+                max="100"
+                value={expWeight}
+                onChange={(e) => setExpWeight(Number(e.target.value))}
+                className="w-full accent-blue-600"
+              />
+            </div>
+
+            {/* Behaviour Slider */}
+            <div className="space-y-1">
+              <div className="flex justify-between text-xs font-bold text-neutral-700">
                 <span>BEHAVIOUR_SIGNALS</span>
-                <span className="text-[#0000FF] font-data">{behWeight}%</span>
+                <span className="text-blue-600 font-sans">{behavWeight}%</span>
               </div>
               <input
                 type="range"
                 min="0"
                 max="100"
-                value={behWeight}
+                value={behavWeight}
                 onChange={(e) => setBehWeight(Number(e.target.value))}
-                className="w-full accent-[#0000FF]"
+                className="w-full accent-blue-600"
               />
-              <span className="text-[10px] text-[#8C8C8C] block leading-tight">
-                Ownership pronouns vs task-driven outputs.
-              </span>
             </div>
 
-            {/* Technical Depth Slider */}
-            <div className="space-y-2">
-              <div className="flex justify-between text-xs font-bold text-[#4A4A4A]">
-                <span>TECHNICAL_DEPTH</span>
-                <span className="text-[#0000FF] font-data">{depthWeight}%</span>
+            {/* Education Slider */}
+            <div className="space-y-1">
+              <div className="flex justify-between text-xs font-bold text-neutral-700">
+                <span>EDUCATION_TIER</span>
+                <span className="text-blue-600 font-sans">{eduWeight}%</span>
               </div>
               <input
                 type="range"
                 min="0"
                 max="100"
-                value={depthWeight}
-                onChange={(e) => setDepthWeight(Number(e.target.value))}
-                className="w-full accent-[#0000FF]"
+                value={eduWeight}
+                onChange={(e) => setEduWeight(Number(e.target.value))}
+                className="w-full accent-blue-600"
               />
-              <span className="text-[10px] text-[#8C8C8C] block leading-tight">
-                Insider jargon checklist vs pride-mismatches.
-              </span>
+            </div>
+
+            {/* Logistics Slider */}
+            <div className="space-y-1">
+              <div className="flex justify-between text-xs font-bold text-neutral-700">
+                <span>LOGISTICS_FIT</span>
+                <span className="text-blue-600 font-sans">{logWeight}%</span>
+              </div>
+              <input
+                type="range"
+                min="0"
+                max="100"
+                value={logWeight}
+                onChange={(e) => setLogWeight(Number(e.target.value))}
+                className="w-full accent-blue-600"
+              />
             </div>
           </div>
         </div>
 
         {/* Real-time Rank List */}
-        <div className="mt-8 pt-6 border-t border-[#E5E5E5]">
-          <h4 className="font-bold text-xs uppercase tracking-wider text-[#4A4A4A] mb-3">
-            RANKED_SHORTLIST
+        <div className="mt-8 pt-6 border-t border-neutral-200">
+          <h4 className="font-bold text-xs uppercase tracking-wider text-neutral-500 mb-3">
+            RANKED_SHORTLIST (Top 100)
           </h4>
-          <div className="space-y-2">
-            {candidates.map((c, index) => (
+          <div className="space-y-2 max-h-[350px] overflow-y-auto pr-1">
+            {candidates.map((c: any, index: number) => (
               <div
                 key={c.id}
                 onClick={() => setActiveCandidateId(c.id)}
-                className={`p-3 rounded border cursor-pointer transition-all flex items-center justify-between ${
+                className={`p-3 rounded-lg border cursor-pointer transition-all flex items-center justify-between ${
                   activeCandidateId === c.id
-                    ? 'border-[#0000FF] bg-[#F0F4FF] font-bold'
-                    : 'border-[#E5E5E5] bg-white hover:border-[#0000FF]'
+                    ? 'border-blue-600 bg-blue-50 font-bold'
+                    : 'border-neutral-200 bg-white hover:border-blue-600'
                 }`}
               >
-                <div className="flex items-center gap-3">
-                  <span className="text-xs font-data text-[#8C8C8C]">#{index + 1}</span>
-                  <span className="text-xs truncate max-w-[120px] md:max-w-none">{c.name}</span>
-                </div>
                 <div className="flex items-center gap-2">
-                  <span className={`font-data text-xs font-bold ${getScoreColorClass(c.calculatedScore)}`}>
+                  <span className="text-xs font-sans text-neutral-400">#{index + 1}</span>
+                  <span className="text-xs truncate max-w-[140px]">{c.name}</span>
+                </div>
+                <div className="flex items-center gap-1.5">
+                  <span className={`font-sans text-xs font-bold ${getScoreColorClass(c.calculatedScore)}`}>
                     {c.calculatedScore}/100
                   </span>
-                  <ChevronRight className={`w-3.5 h-3.5 ${activeCandidateId === c.id ? 'text-[#0000FF]' : 'text-[#8C8C8C]'}`} />
+                  <ChevronRight className={`w-3.5 h-3.5 ${activeCandidateId === c.id ? 'text-blue-600' : 'text-neutral-400'}`} />
                 </div>
               </div>
             ))}
@@ -234,30 +303,30 @@ export default function DashboardDemo() {
         </div>
       </div>
 
-      {/* Main Workspace Demo (col-span-8) */}
+      {/* Main Workspace (col-span-8) */}
       <div className="lg:col-span-8 space-y-6">
-        {activeCandidate && (
-          <div className="rounded-md border border-[#E5E5E5] bg-white p-6 shadow-sm space-y-6">
+        {activeCandidate ? (
+          <div className="rounded-lg border border-neutral-200 bg-white p-6 shadow-sm space-y-6">
             
             {/* Header info */}
-            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between border-b border-[#E5E5E5] pb-4 gap-4">
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between border-b border-neutral-200 pb-4 gap-4">
               <div>
                 <div className="flex items-center gap-3 mb-1">
-                  <h3 className="font-display font-bold text-lg text-[#0A0A0A]">
+                  <h3 className="font-sans font-bold text-lg text-neutral-900">
                     {activeCandidate.name}
                   </h3>
                   <span className={`border text-[10px] font-bold px-2 py-0.5 rounded tracking-wide ${getTrajectoryBadgeStyles(activeCandidate.trajectory)}`}>
                     {activeCandidate.trajectory}
                   </span>
                 </div>
-                <p className="text-xs text-[#4A4A4A] font-mono">
+                <p className="text-xs text-neutral-500 font-mono">
                   {activeCandidate.statedRole}
                 </p>
               </div>
 
               <div className="text-left sm:text-right flex items-baseline sm:flex-col justify-between sm:justify-center">
-                <span className="text-xs text-[#8C8C8C] font-mono block">MATCH_SCORE</span>
-                <span className="font-data text-3xl font-medium tracking-tight flex items-baseline">
+                <span className="text-xs text-neutral-400 font-mono block">COMPOSITE_SCORE</span>
+                <span className="font-sans text-3xl font-medium tracking-tight flex items-baseline">
                   <span className={getScoreColorClass(activeCandidate.calculatedScore)}>
                     {activeCandidate.calculatedScore}
                   </span>
@@ -268,15 +337,15 @@ export default function DashboardDemo() {
 
             {/* Red Flags if any */}
             {activeCandidate.redFlags.length > 0 && (
-              <div className="bg-[#FFF5F5] border border-[#D4382C]/20 rounded p-4 space-y-2">
-                <div className="flex items-center gap-2 text-[#D4382C] text-xs font-bold uppercase">
-                  <AlertTriangle className="w-4 h-4 text-[#D4382C]" />
-                  <span>RED_FLAGS_DETECTED ({activeCandidate.redFlags.length})</span>
+              <div className="bg-red-50 border border-red-200/50 rounded-lg p-4 space-y-2">
+                <div className="flex items-center gap-2 text-red-700 text-xs font-bold uppercase">
+                  <AlertTriangle className="w-4 h-4 text-red-600" />
+                  <span>CONSISTENCY_GATE_WARNINGS ({activeCandidate.redFlags.length})</span>
                 </div>
-                <div className="space-y-1 pl-6">
-                  {activeCandidate.redFlags.map((flag, idx) => (
-                    <div key={idx} className="text-xs text-[#0A0A0A]">
-                      <span className="font-bold text-[#D4382C] mr-1">[{flag.type} - {flag.severity.toUpperCase()}]:</span>
+                <div className="space-y-1.5 pl-6">
+                  {activeCandidate.redFlags.map((flag: any, idx: number) => (
+                    <div key={idx} className="text-xs text-neutral-800">
+                      <span className="font-bold text-red-600 mr-1">[{flag.type}]:</span>
                       {flag.text}
                     </div>
                   ))}
@@ -285,88 +354,103 @@ export default function DashboardDemo() {
             )}
 
             {/* Score Breakdown metrics */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 border border-neutral-100 p-4 rounded-lg bg-neutral-50/50">
               <div className="space-y-1">
-                <span className="text-[10px] font-bold text-[#4A4A4A] uppercase tracking-wider block">TRAJECTORY_PROGRESSION</span>
+                <span className="text-[10px] font-bold text-neutral-500 uppercase tracking-wider block">SKILL_MATCH</span>
                 <div className="flex items-center gap-3">
-                  <div className="h-2 bg-neutral-100 rounded-full flex-1 overflow-hidden">
+                  <div className="h-2 bg-neutral-200 rounded-full flex-1 overflow-hidden">
+                    <div 
+                      className={`h-full ${getScoreBgClass(activeCandidate.baseDepthScore)}`} 
+                      style={{ width: `${activeCandidate.baseDepthScore}%` }}
+                    />
+                  </div>
+                  <span className="text-xs font-sans font-bold text-neutral-700 min-w-[24px]">
+                    {activeCandidate.baseDepthScore}
+                  </span>
+                </div>
+              </div>
+
+              <div className="space-y-1">
+                <span className="text-[10px] font-bold text-neutral-500 uppercase tracking-wider block">EXPERIENCE_FIT</span>
+                <div className="flex items-center gap-3">
+                  <div className="h-2 bg-neutral-200 rounded-full flex-1 overflow-hidden">
                     <div 
                       className={`h-full ${getScoreBgClass(activeCandidate.baseTrajectoryScore)}`} 
                       style={{ width: `${activeCandidate.baseTrajectoryScore}%` }}
                     />
                   </div>
-                  <span className="text-xs font-data font-bold text-[#0A0A0A] min-w-[24px]">
+                  <span className="text-xs font-sans font-bold text-neutral-700 min-w-[24px]">
                     {activeCandidate.baseTrajectoryScore}
                   </span>
                 </div>
               </div>
 
               <div className="space-y-1">
-                <span className="text-[10px] font-bold text-[#4A4A4A] uppercase tracking-wider block">BEHAVIOUR_SIGNALS</span>
+                <span className="text-[10px] font-bold text-neutral-500 uppercase tracking-wider block">BEHAVIOUR_SIGNALS</span>
                 <div className="flex items-center gap-3">
-                  <div className="h-2 bg-neutral-100 rounded-full flex-1 overflow-hidden">
+                  <div className="h-2 bg-neutral-200 rounded-full flex-1 overflow-hidden">
                     <div 
                       className={`h-full ${getScoreBgClass(activeCandidate.baseBehaviourScore)}`} 
                       style={{ width: `${activeCandidate.baseBehaviourScore}%` }}
                     />
                   </div>
-                  <span className="text-xs font-data font-bold text-[#0A0A0A] min-w-[24px]">
+                  <span className="text-xs font-sans font-bold text-neutral-700 min-w-[24px]">
                     {activeCandidate.baseBehaviourScore}
                   </span>
                 </div>
               </div>
 
               <div className="space-y-1">
-                <span className="text-[10px] font-bold text-[#4A4A4A] uppercase tracking-wider block">TECHNICAL_DEPTH</span>
+                <span className="text-[10px] font-bold text-neutral-500 uppercase tracking-wider block">LOGISTICS_FIT</span>
                 <div className="flex items-center gap-3">
-                  <div className="h-2 bg-neutral-100 rounded-full flex-1 overflow-hidden">
+                  <div className="h-2 bg-neutral-200 rounded-full flex-1 overflow-hidden">
                     <div 
-                      className={`h-full ${getScoreBgClass(activeCandidate.baseDepthScore)}`} 
-                      style={{ width: `${activeCandidate.baseDepthScore}%` }}
+                      className={`h-full ${getScoreBgClass(activeCandidate.baseLogisticsScore)}`} 
+                      style={{ width: `${activeCandidate.baseLogisticsScore}%` }}
                     />
                   </div>
-                  <span className="text-xs font-data font-bold text-[#0A0A0A] min-w-[24px]">
-                    {activeCandidate.baseDepthScore}
+                  <span className="text-xs font-sans font-bold text-neutral-700 min-w-[24px]">
+                    {activeCandidate.baseLogisticsScore}
                   </span>
                 </div>
               </div>
             </div>
 
             {/* Brief Narrative */}
-            <div className="space-y-1.5 border-t border-[#E5E5E5] pt-4">
-              <span className="text-[10px] font-bold text-[#4A4A4A] uppercase tracking-wider block">AI_NARRATIVE_AUDIT</span>
-              <p className="text-xs text-[#0A0A0A] leading-relaxed font-mono bg-[#FAFAFA] border border-[#E5E5E5] p-3 rounded">
+            <div className="space-y-1.5 border-t border-neutral-100 pt-4">
+              <span className="text-[10px] font-bold text-neutral-500 uppercase tracking-wider block">FACTUAL_EXPLANATION</span>
+              <p className="text-xs text-neutral-800 leading-relaxed font-mono bg-neutral-50 border border-neutral-200 p-3 rounded-lg">
                 {activeCandidate.narrative}
               </p>
             </div>
 
             {/* Insider signals */}
             <div className="space-y-3">
-              <span className="text-[10px] font-bold text-[#4A4A4A] uppercase tracking-wider block">
-                INSIDER_SIGNALS (Checked: {activeCandidate.insiderSignals.score}%)
+              <span className="text-[10px] font-bold text-neutral-500 uppercase tracking-wider block">
+                INGESTED_PROFILE_FACTS
               </span>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
                 {/* Present */}
-                <div className="border border-green-200/50 bg-[#F0FDF4] p-3 rounded space-y-1.5">
-                  <div className="font-bold text-[#166534] flex items-center gap-1">
-                    <CheckCircle className="w-3.5 h-3.5" />
-                    <span>VERIFIED_SIGNALS</span>
+                <div className="border border-green-200/50 bg-green-50/30 p-3 rounded-lg space-y-1.5">
+                  <div className="font-bold text-green-800 flex items-center gap-1">
+                    <CheckCircle className="w-3.5 h-3.5 text-green-600" />
+                    <span>SIGNAL_VALIDATIONS</span>
                   </div>
                   <ul className="space-y-1 list-disc list-inside text-neutral-600 text-[11px] leading-tight">
-                    {activeCandidate.insiderSignals.present.map((sig, i) => (
+                    {activeCandidate.insiderSignals.present.map((sig: string, i: number) => (
                       <li key={i}>{sig}</li>
                     ))}
                   </ul>
                 </div>
 
                 {/* Absent */}
-                <div className="border border-yellow-200/50 bg-[#FFFBF0] p-3 rounded space-y-1.5">
-                  <div className="font-bold text-[#C47D10] flex items-center gap-1">
-                    <Info className="w-3.5 h-3.5" />
-                    <span>CONSPICUOUS_ABSENCE</span>
+                <div className="border border-yellow-200/50 bg-yellow-50/30 p-3 rounded-lg space-y-1.5">
+                  <div className="font-bold text-yellow-800 flex items-center gap-1">
+                    <Info className="w-3.5 h-3.5 text-yellow-600" />
+                    <span>CONSISTENCY_CHECK</span>
                   </div>
                   <ul className="space-y-1 list-disc list-inside text-neutral-600 text-[11px] leading-tight">
-                    {activeCandidate.insiderSignals.absent.map((sig, i) => (
+                    {activeCandidate.insiderSignals.absent.map((sig: string, i: number) => (
                       <li key={i}>{sig}</li>
                     ))}
                   </ul>
@@ -375,21 +459,21 @@ export default function DashboardDemo() {
             </div>
 
             {/* Custom generated Interrogation Questions */}
-            <div className="space-y-3 border-t border-[#E5E5E5] pt-4">
-              <div className="flex items-center gap-1.5 text-xs font-bold uppercase text-[#0000FF]">
-                <HelpCircle className="w-4 h-4" />
+            <div className="space-y-3 border-t border-neutral-200 pt-4">
+              <div className="flex items-center gap-1.5 text-xs font-bold uppercase text-blue-700">
+                <HelpCircle className="w-4 h-4 text-blue-600" />
                 <span>INTERROGATION_QUESTIONS</span>
               </div>
-              <p className="text-xs text-[#4A4A4A] leading-relaxed font-mono">
-                The candidate claims high competence in these areas. Standard interviews won&apos;t detect inflation; these targeted technical probes are generated specifically to verify actual depth:
+              <p className="text-xs text-neutral-600 leading-relaxed font-mono">
+                Targeted technical screening probes generated specifically for this candidate to verify claims and resolve potential concerns during review:
               </p>
               <div className="space-y-2">
-                {activeCandidate.questions.map((q, idx) => (
-                  <div key={idx} className="bg-[#F0F4FF] border border-[#0000FF]/20 p-3 rounded text-xs flex items-start gap-2.5 font-mono">
-                    <span className="font-data font-bold text-[#0000FF] bg-[#0000FF]/15 text-[11px] px-1.5 py-0.5 rounded leading-none mt-0.5 border border-[#0000FF]/25">
+                {activeCandidate.questions.map((q: string, idx: number) => (
+                  <div key={idx} className="bg-blue-50/50 border border-blue-200/50 p-3 rounded-lg text-xs flex items-start gap-2.5 font-mono">
+                    <span className="font-sans font-bold text-blue-700 bg-blue-100/50 text-[11px] px-1.5 py-0.5 rounded leading-none mt-0.5 border border-blue-200">
                       Q{idx + 1}
                     </span>
-                    <span className="text-[#0A0A0A] leading-relaxed">
+                    <span className="text-neutral-800 leading-relaxed">
                       {q}
                     </span>
                   </div>
@@ -397,6 +481,10 @@ export default function DashboardDemo() {
               </div>
             </div>
 
+          </div>
+        ) : (
+          <div className="text-center py-12 border border-dashed border-neutral-200 rounded-lg text-neutral-500">
+            No active candidate selected. Please run the ranker first.
           </div>
         )}
       </div>

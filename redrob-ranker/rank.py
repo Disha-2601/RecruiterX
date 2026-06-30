@@ -249,6 +249,44 @@ def main():
     out_path = args["out"]
     submission_df.to_csv(out_path, index=False, encoding="utf-8")
     
+    # Also write JSON for Next.js frontend if workspace structure exists
+    frontend_json_dir = os.path.join("..", "src", "data")
+    if os.path.exists(os.path.join("..", "src")):
+        os.makedirs(frontend_json_dir, exist_ok=True)
+        frontend_json_path = os.path.join(frontend_json_dir, "ranked_candidates.json")
+        
+        json_records = []
+        for idx, row in df_sorted.iterrows():
+            record = {
+                "candidate_id": row["candidate_id"],
+                "rank": int(row["rank"]),
+                "score": float(row["score"]),
+                "reasoning": row["reasoning"],
+                "anonymized_name": row["anonymized_name"],
+                "years_of_experience": float(row["years_of_experience"]),
+                "current_title": row["current_title"],
+                "current_company": row["current_company"],
+                "location": row["location"],
+                "notice_period_days": int(row["notice_period_days"]),
+                "preferred_work_mode": row["preferred_work_mode"],
+                "skill_match": float(row["skill_match"]),
+                "experience_fit": float(row["experience_fit"]),
+                "behavioral": float(row["behavioral"]),
+                "education": float(row["education"]),
+                "logistics_fit": float(row["logistics_fit"]),
+                "consistency_penalty": float(row["consistency_penalty"]),
+                "has_expert_low_duration": bool(row["has_expert_low_duration"]),
+                "has_yoe_mismatch": bool(row["has_yoe_mismatch"]),
+                "has_overlap": bool(row["has_overlap"]),
+                "has_assessment_mismatch": bool(row["has_assessment_mismatch"]),
+                "has_suspicious_uniformity": bool(row["has_suspicious_uniformity"])
+            }
+            json_records.append(record)
+            
+        with open(frontend_json_path, "w", encoding="utf-8") as f:
+            json.dump(json_records, f, indent=2)
+        print(f"Saved frontend JSON to {frontend_json_path}")
+        
     end_time = time.time()
     print(f"Ranking completed in {round(end_time - start_time, 2)} seconds.")
     print(f"Saved ranked candidates to {out_path}")
