@@ -49,8 +49,10 @@ export async function middleware(request: NextRequest) {
   const isDashboardRoute = path.startsWith('/dashboard') || path.startsWith('/projects') || path.startsWith('/org-selection')
   const isAuthRoute = path === '/login' || path === '/signup'
 
+  const isDummy = supabaseUrl?.includes('dummy-project.supabase.co')
+
   // If user is not authenticated and trying to access dashboard/projects, redirect to /login
-  if (!user && isDashboardRoute) {
+  if (!user && isDashboardRoute && !isDummy) {
     const url = request.nextUrl.clone()
     url.pathname = '/login'
     return NextResponse.redirect(url)
