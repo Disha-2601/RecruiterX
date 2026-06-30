@@ -1,0 +1,13 @@
+# Cache files (large binaries, embeddings, etc.)
+cache/*
+!cache/.gitkeep
+
+# Python virtual environment
+.venv/
+venv/
+
+# Python compiled files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd

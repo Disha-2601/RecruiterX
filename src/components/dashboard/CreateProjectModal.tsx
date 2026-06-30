@@ -58,7 +58,7 @@ export default function CreateProjectModal({
     };
 
     fetchApiKeys();
-  }, [isOpen, orgId]);
+  }, [isOpen, orgId, supabase]);
 
   if (!isOpen) return null;
 

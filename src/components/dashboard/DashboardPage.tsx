@@ -29,7 +29,6 @@ export default function DashboardPage() {
   });
 
   // Modal Open States
-  const [isCreateOpen, setIsCreateOpen] = useState(false);
   const [selectedProject, setSelectedProject] = useState<any | null>(null);
   const [isDetailsOpen, setIsDetailsOpen] = useState(false);
 
@@ -366,14 +365,31 @@ export default function DashboardPage() {
   };
 
   const handleSelectProject = (project: any) => {
-    setSelectedProject(project);
-    setIsDetailsOpen(true);
+    router.push(`/project/${project.id}`);
   };
 
-  const handleProjectCreated = (newProject: any) => {
-    fetchDashboardData();
-    setSelectedProject(newProject);
-    setIsDetailsOpen(true);
+  const handleCreateNewProject = async () => {
+    if (!activeOrg || !user) return;
+    try {
+      setIsLoading(true);
+      const { data: newProject, error: insertError } = await supabase
+        .from('projects')
+        .insert({
+          org_id: activeOrg.id,
+          title: 'Untitled Project',
+          role: 'Untitled Role',
+          status: 'draft',
+          created_by: user.id
+        })
+        .select()
+        .single();
+
+      if (insertError || !newProject) throw insertError || new Error('Failed to create project');
+      router.push(`/project/${newProject.id}`);
+    } catch (err: any) {
+      alert(`Failed to create project: ${err.message}`);
+      setIsLoading(false);
+    }
   };
 
   if (isLoading) {
@@ -392,7 +408,7 @@ export default function DashboardPage() {
       {/* Navigation */}
       <Navbar 
         activeOrgName={activeOrg?.name || 'Loading Organization...'} 
-        onOpenCreateModal={() => setIsCreateOpen(true)}
+        onOpenCreateModal={handleCreateNewProject}
       />
 
       {/* Main Container */}
@@ -421,7 +437,7 @@ export default function DashboardPage() {
           <ProjectsGrid
             projects={projects}
             onSelectProject={handleSelectProject}
-            onOpenCreateModal={() => setIsCreateOpen(true)}
+            onOpenCreateModal={handleCreateNewProject}
             onRetryProject={handleRetryProject}
             onRestoreProject={handleRestoreProject}
           />
@@ -448,14 +464,6 @@ export default function DashboardPage() {
           )}
         </button>
       </footer>
-
-      {/* Modals */}
-      <CreateProjectModal
-        orgId={activeOrg?.id || ''}
-        isOpen={isCreateOpen}
-        onClose={() => setIsCreateOpen(false)}
-        onProjectCreated={handleProjectCreated}
-      />
 
       <ProjectDetailsModal
         project={selectedProject}
