@@ -5,7 +5,6 @@ import { useRouter, usePathname } from 'next/navigation';
 import Link from 'next/link';
 import { api } from '@/utils/api-client';
 import { Building, LogOut, Plus } from 'lucide-react';
-import CreateProjectModal from '../dashboard/CreateProjectModal';
 
 export default function AppShell({ children }: { children: React.ReactNode }) {
   const router = useRouter();
@@ -15,7 +14,7 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
     id: 'mock-local-org',
     name: 'Local Dev Organization',
   });
-  const [isCreateOpen, setIsCreateOpen] = useState(false);
+
 
   const fetchOrg = useCallback(async () => {
     try {
@@ -54,10 +53,7 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
     router.push('/');
   };
 
-  const handleProjectCreated = (newProject: any) => {
-    // Navigate to the project wizard immediately
-    router.push(`/project/${newProject.id}`);
-  };
+
 
   // Determine if path is wizard or dashboard
   const isDashboard = pathname === '/' || pathname === '/dashboard';
@@ -111,7 +107,7 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
         <div className="flex items-center gap-4">
           {/* + New Project Button */}
           <button
-            onClick={() => setIsCreateOpen(true)}
+            onClick={() => router.push('/project/new')}
             className="bg-[#0000FF] hover:bg-[#0000CC] text-white text-xs font-semibold rounded-full px-5 py-2.5 transition-all flex items-center gap-1.5 active:scale-[0.98] shadow-md shadow-blue-500/10"
           >
             <Plus className="w-4 h-4" />
@@ -134,13 +130,7 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
         {children}
       </main>
 
-      {/* Inline Create Project Modal */}
-      <CreateProjectModal
-        orgId={activeOrg.id}
-        isOpen={isCreateOpen}
-        onClose={() => setIsCreateOpen(false)}
-        onProjectCreated={handleProjectCreated}
-      />
+
     </div>
   );
 }

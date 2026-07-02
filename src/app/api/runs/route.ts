@@ -87,11 +87,14 @@ async function runPipelineInBackground(
     }
 
     // 1. Update project status in FastAPI DB to 'auditing'
-    await fetch(`http://127.0.0.1:8000/api/v1/db/projects?filters=[{"column":"id","value":"${projectId}"}]`, {
+    const putRes = await fetch(`http://127.0.0.1:8000/api/v1/db/projects?filters=[{"column":"id","value":"${projectId}"}]`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ status: 'auditing' })
     });
+    if (!putRes.ok) {
+      console.warn(`Warning: Failed to update project status to auditing (HTTP ${putRes.status})`);
+    }
 
     // 2. Run Embedding if not skipped
     if (!skipEmbed) {
@@ -138,7 +141,7 @@ async function runPipelineInBackground(
       if (c.has_suspicious_uniformity) flags.push({ type: 'SUSPICIOUS_UNIFORMITY', text: 'Uniform expert proficiency claimed across all skills' });
 
       return {
-        id: c.candidate_id,
+        id: `${projectId}_${c.candidate_id}`,
         project_id: projectId,
         org_id: project.org_id,
         name: c.anonymized_name || c.candidate_id,
@@ -148,6 +151,9 @@ async function runPipelineInBackground(
         behaviour_score: Math.round(c.behavioral * 100),
         insider_score: Math.round(c.education * 100),
         credibility_score: Math.round(c.logistics_fit * 100),
+        skill_match_score: Math.round(c.skill_match * 100),
+        education_score: Math.round(c.education * 100),
+        consistency_penalty: c.consistency_penalty,
         final_score: Math.round(c.score * 100),
         trajectory_label: c.years_of_experience > 7 ? 'SENIOR' : 'MID',
         red_flags: flags,

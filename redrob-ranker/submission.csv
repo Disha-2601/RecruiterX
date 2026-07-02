@@ -1,101 +1,101 @@
 candidate_id,rank,score,reasoning
-CAND_0077337,1,0.670561,Staff Machine Learning Engineer showing 7.0 yrs of history; matches well on RAG and Sentence Transformers; prefers remote work
-CAND_0002025,2,0.664364,Senior AI Engineer with 5.9 yrs experience; notable fit on Sentence Transformers and NLP; highly responsive to recruiters (80%)
-CAND_0046525,3,0.654133,Experienced Senior Machine Learning Engineer (6.1 yrs); demonstrates strong Sentence Transformers and NLP alignment; highly responsive to recruiters (88%)
-CAND_0006567,4,0.649579,Experienced Senior AI Engineer (7.9 yrs); demonstrates strong Python and NLP alignment; highly responsive to recruiters (79%)
-CAND_0070514,5,0.645220,Experienced AI Specialist (5.5 yrs); demonstrates strong Python and domain knowledge alignment; highly responsive to recruiters (80%)
-CAND_0096142,6,0.644871,Applied ML Engineer offering 5.0 years experience; key strengths include Python and NLP; notice period is long (120 days)
-CAND_0070398,7,0.644041,Experienced Machine Learning Engineer (7.2 yrs); demonstrates strong RAG and Python alignment; notice period is long (120 days)
-CAND_0088025,8,0.643625,Experienced Staff Machine Learning Engineer (8.6 yrs); demonstrates strong RAG and Python alignment; highly responsive to recruiters (83%)
-CAND_0030468,9,0.642219,Experienced Senior Applied Scientist (5.4 yrs); demonstrates strong core skills and domain knowledge alignment; prefers remote work
-CAND_0093763,10,0.638317,Senior Software Engineer (ML) with 5.0 yrs; strong in Sentence Transformers and domain knowledge; prefers remote work
-CAND_0061257,11,0.638144,Staff Machine Learning Engineer offering 8.0 years experience; key strengths include Search Infrastructure and Python; highly responsive to recruiters (87%)
-CAND_0037980,12,0.637574,Senior Applied Scientist offering 9.0 years experience; key strengths include Search Infrastructure and NLP; marked as actively looking
-CAND_0050876,13,0.637548,Applied ML Engineer offering 6.0 years experience; key strengths include Sentence Transformers and Python; marked as actively looking
-CAND_0030784,14,0.636029,Data Scientist showing 4.4 yrs of history; matches well on Python and Sentence Transformers; highly responsive to recruiters (90%)
-CAND_0008425,15,0.634815,Experienced Senior NLP Engineer (7.8 yrs); demonstrates strong Sentence Transformers and NLP alignment; prefers remote work
-CAND_0064326,16,0.633976,Search Engineer showing 7.6 yrs of history; matches well on RAG and Python; highly responsive to recruiters (94%)
-CAND_0002120,17,0.632668,ML Engineer with 6.5 yrs experience; notable fit on RAG and domain knowledge; highly responsive to recruiters (72%)
-CAND_0074735,18,0.632165,Applied ML Engineer showing 5.5 yrs of history; matches well on RAG and domain knowledge; highly responsive to recruiters (77%)
-CAND_0086022,19,0.631206,Senior Applied Scientist with 5.3 yrs experience; notable fit on NLP and Sentence Transformers; marked as actively looking
-CAND_0080766,20,0.629948,Staff Machine Learning Engineer showing 8.8 yrs of history; matches well on Search Infrastructure and Python; profile is complete and verified
-CAND_0037944,21,0.629635,Senior Data Scientist with 4.9 yrs; strong in Python and Sentence Transformers; marked as actively looking
-CAND_0078262,22,0.629580,ML Engineer showing 4.9 yrs of history; matches well on Sentence Transformers and RAG; marked as actively looking
-CAND_0046064,23,0.629062,Senior NLP Engineer with 8.9 yrs; strong in Python and domain knowledge; highly responsive to recruiters (78%)
-CAND_0074342,24,0.628392,Experienced Data Scientist (5.7 yrs); demonstrates strong Sentence Transformers and RAG alignment; prefers remote work
-CAND_0043228,25,0.627686,Applied ML Engineer offering 6.8 years experience; key strengths include NLP and Sentence Transformers; profile is complete and verified
-CAND_0099806,26,0.627528,AI Engineer with 4.6 yrs experience; notable fit on RAG and Sentence Transformers; highly responsive to recruiters (76%)
-CAND_0025335,27,0.627036,Data Scientist with 6.6 yrs experience; notable fit on NLP and RAG; marked as actively looking
-CAND_0002743,28,0.627031,Senior Software Engineer with 5.7 yrs experience; notable fit on NLP and domain knowledge; notice period is long (120 days)
-CAND_0055960,29,0.625187,AI Specialist with 4.9 yrs experience; notable fit on core skills and domain knowledge; prefers remote work
-CAND_0004402,30,0.625153,AI Research Engineer with 6.0 yrs experience; notable fit on Sentence Transformers and domain knowledge; highly responsive to recruiters (83%)
-CAND_0005260,31,0.625033,Senior NLP Engineer with 5.2 yrs experience; notable fit on Python and NLP; highly responsive to recruiters (86%)
-CAND_0033445,32,0.624454,ML Engineer showing 6.8 yrs of history; matches well on core skills and domain knowledge; highly responsive to recruiters (94%)
-CAND_0011687,33,0.624363,Senior NLP Engineer offering 7.8 years experience; key strengths include core skills and domain knowledge; highly responsive to recruiters (89%)
-CAND_0057736,34,0.624082,Computer Vision Engineer offering 6.2 years experience; key strengths include NLP and domain knowledge; highly responsive to recruiters (92%)
-CAND_0070525,35,0.623650,Senior Software Engineer (ML) with 5.4 yrs; strong in Python and domain knowledge; highly responsive to recruiters (93%)
-CAND_0094482,36,0.623645,Junior ML Engineer showing 6.4 yrs of history; matches well on core skills and domain knowledge; highly responsive to recruiters (85%)
-CAND_0052328,37,0.623394,Recommendation Systems Engineer with 6.5 yrs; strong in Sentence Transformers and Python; highly responsive to recruiters (79%)
-CAND_0064888,38,0.623195,ML Engineer offering 5.8 years experience; key strengths include core skills and domain knowledge; prefers remote work
-CAND_0018722,39,0.622725,Experienced Recommendation Systems Engineer (6.6 yrs); demonstrates strong Python and domain knowledge alignment; highly responsive to recruiters (79%)
-CAND_0055905,40,0.622448,Senior Machine Learning Engineer offering 8.1 years experience; key strengths include Python and domain knowledge; prefers remote work
-CAND_0081846,41,0.622245,Lead AI Engineer with 6.7 yrs; strong in Python and domain knowledge; prefers remote work
-CAND_0062247,42,0.622228,Experienced AI Engineer (7.3 yrs); demonstrates strong RAG and domain knowledge alignment; highly responsive to recruiters (78%)
-CAND_0020991,43,0.621616,Junior ML Engineer with 4.9 yrs; strong in Python and domain knowledge; notice period is long (120 days)
-CAND_0024878,44,0.621363,AI Specialist showing 5.7 yrs of history; matches well on NLP and domain knowledge; highly responsive to recruiters (84%)
-CAND_0063622,45,0.621077,Computer Vision Engineer with 5.2 yrs; strong in NLP and domain knowledge; highly responsive to recruiters (92%)
-CAND_0071974,46,0.620347,Senior AI Engineer with 7.8 yrs; strong in Sentence Transformers and RAG; highly responsive to recruiters (76%)
-CAND_0058688,47,0.619539,AI Engineer with 6.7 yrs; strong in core skills and domain knowledge; highly responsive to recruiters (74%)
-CAND_0011162,48,0.619418,Recommendation Systems Engineer offering 5.8 years experience; key strengths include Sentence Transformers and Python; highly responsive to recruiters (75%)
-CAND_0029367,49,0.619186,Senior Data Scientist offering 5.7 years experience; key strengths include Sentence Transformers and RAG; highly responsive to recruiters (77%)
-CAND_0077956,50,0.618172,Experienced Computer Vision Engineer (6.4 yrs); demonstrates strong core skills and domain knowledge alignment; notice period is long (120 days)
-CAND_0043637,51,0.617258,Junior ML Engineer with 5.5 yrs experience; notable fit on core skills and domain knowledge; highly responsive to recruiters (92%)
-CAND_0072660,52,0.617169,Machine Learning Engineer with 7.1 yrs experience; notable fit on Python and NLP; prefers remote work
-CAND_0054703,53,0.616900,Computer Vision Engineer showing 6.8 yrs of history; matches well on Python and NLP; prefers remote work
-CAND_0094292,54,0.616232,Experienced AI Specialist (6.5 yrs); demonstrates strong NLP and domain knowledge alignment; prefers remote work
-CAND_0041918,55,0.615753,AI Specialist showing 5.7 yrs of history; matches well on core skills and domain knowledge; highly responsive to recruiters (87%)
-CAND_0010149,56,0.615521,Experienced ML Engineer (6.9 yrs); demonstrates strong core skills and domain knowledge alignment; highly responsive to recruiters (82%)
-CAND_0098288,57,0.615497,Junior ML Engineer with 6.7 yrs experience; notable fit on NLP and Python; marked as actively looking
-CAND_0043860,58,0.615328,Junior ML Engineer showing 6.1 yrs of history; matches well on core skills and domain knowledge; highly responsive to recruiters (81%)
-CAND_0077498,59,0.614398,Senior Software Engineer (ML) with 5.4 yrs; strong in Sentence Transformers and domain knowledge; highly responsive to recruiters (89%)
-CAND_0043318,60,0.614056,Data Scientist offering 6.2 years experience; key strengths include RAG and domain knowledge; notice period is long (120 days)
-CAND_0003599,61,0.614011,Computer Vision Engineer with 6.5 yrs; strong in Sentence Transformers and Python; marked as actively looking
-CAND_0092706,62,0.613961,AI Research Engineer showing 5.8 yrs of history; matches well on Sentence Transformers and domain knowledge; notice period is long (120 days)
-CAND_0098454,63,0.613234,Experienced AI Specialist (6.6 yrs); demonstrates strong NLP and domain knowledge alignment; highly responsive to recruiters (87%)
-CAND_0059017,64,0.612983,AI Research Engineer with 6.8 yrs; strong in Sentence Transformers and Python; highly responsive to recruiters (75%)
-CAND_0067866,65,0.612008,Senior Software Engineer (ML) with 6.4 yrs experience; notable fit on core skills and domain knowledge; prefers remote work
-CAND_0087778,66,0.611942,Data Scientist showing 5.8 yrs of history; matches well on NLP and domain knowledge; highly responsive to recruiters (87%)
-CAND_0098217,67,0.611918,ML Engineer showing 6.4 yrs of history; matches well on core skills and domain knowledge; highly responsive to recruiters (84%)
-CAND_0052335,68,0.611674,Applied ML Engineer with 6.4 yrs experience; notable fit on NLP and Sentence Transformers; highly responsive to recruiters (79%)
-CAND_0041669,69,0.611510,Recommendation Systems Engineer with 8.0 yrs experience; notable fit on core skills and domain knowledge; highly responsive to recruiters (77%)
-CAND_0098952,70,0.611248,AI Research Engineer offering 5.5 years experience; key strengths include NLP and Python; prefers remote work
-CAND_0018499,71,0.611135,Experienced Senior Machine Learning Engineer (7.2 yrs); demonstrates strong RAG and domain knowledge alignment; prefers remote work
-CAND_0098846,72,0.610689,AI Engineer with 7.6 yrs experience; notable fit on core skills and domain knowledge; marked as actively looking
-CAND_0017960,73,0.610437,Recommendation Systems Engineer offering 7.7 years experience; key strengths include Python and domain knowledge; highly responsive to recruiters (72%)
-CAND_0024466,74,0.610436,Experienced Search Engineer (5.2 yrs); demonstrates strong Sentence Transformers and NLP alignment; notice period is long (120 days)
-CAND_0076482,75,0.610415,ML Engineer showing 6.6 yrs of history; matches well on RAG and domain knowledge; highly responsive to recruiters (86%)
-CAND_0086154,76,0.610058,Data Scientist offering 6.8 years experience; key strengths include core skills and domain knowledge; highly responsive to recruiters (90%)
-CAND_0028793,77,0.609751,Search Engineer showing 7.2 yrs of history; matches well on NLP and domain knowledge; notice period is long (120 days)
-CAND_0077296,78,0.609274,Computer Vision Engineer with 5.8 yrs; strong in core skills and domain knowledge; marked as actively looking
-CAND_0097079,79,0.608834,Computer Vision Engineer showing 5.7 yrs of history; matches well on NLP and domain knowledge; highly responsive to recruiters (79%)
-CAND_0053605,80,0.607988,Senior Software Engineer (ML) with 6.9 yrs; strong in RAG and domain knowledge; highly responsive to recruiters (88%)
-CAND_0003791,81,0.607876,ML Engineer with 6.6 yrs experience; notable fit on Python and domain knowledge; marked as actively looking
-CAND_0015582,82,0.607740,ML Engineer with 4.4 yrs; strong in Sentence Transformers and domain knowledge; notice period is long (120 days)
-CAND_0069905,83,0.607699,Applied ML Engineer with 6.6 yrs experience; notable fit on Sentence Transformers and Python; highly responsive to recruiters (78%)
-CAND_0018320,84,0.607415,Software Engineer with 7.0 yrs; strong in NLP and domain knowledge; highly responsive to recruiters (75%)
-CAND_0078002,85,0.607394,Machine Learning Engineer with 6.3 yrs; strong in NLP and domain knowledge; highly responsive to recruiters (86%)
-CAND_0052195,86,0.607373,Computer Vision Engineer with 6.3 yrs experience; notable fit on Sentence Transformers and NLP; marked as actively looking
-CAND_0083879,87,0.606542,Machine Learning Engineer offering 7.1 years experience; key strengths include Sentence Transformers and domain knowledge; marked as actively looking
-CAND_0051004,88,0.606415,Senior Data Scientist with 4.7 yrs experience; notable fit on core skills and domain knowledge; marked as actively looking
-CAND_0073804,89,0.606366,Analytics Engineer offering 7.2 years experience; key strengths include core skills and domain knowledge; marked as actively looking
-CAND_0072688,90,0.606172,Experienced Data Scientist (6.9 yrs); demonstrates strong NLP and domain knowledge alignment; highly responsive to recruiters (87%)
-CAND_0060472,91,0.606133,Experienced Computer Vision Engineer (4.4 yrs); demonstrates strong NLP and Sentence Transformers alignment; marked as actively looking
-CAND_0051292,92,0.605785,Applied ML Engineer offering 5.2 years experience; key strengths include NLP and RAG; marked as actively looking
-CAND_0068513,93,0.605773,Computer Vision Engineer with 4.0 yrs; strong in RAG and NLP; highly responsive to recruiters (80%)
-CAND_0008295,94,0.605744,Experienced AI Research Engineer (6.5 yrs); demonstrates strong Python and domain knowledge alignment; prefers remote work
-CAND_0067609,95,0.605519,Junior ML Engineer offering 4.5 years experience; key strengths include Python and domain knowledge; highly responsive to recruiters (85%)
-CAND_0083852,96,0.605085,Data Scientist with 6.0 yrs; strong in Sentence Transformers and domain knowledge; highly responsive to recruiters (85%)
-CAND_0012805,97,0.604636,Data Scientist with 4.9 yrs experience; notable fit on core skills and domain knowledge; notice period is long (120 days)
-CAND_0065786,98,0.604607,AI Specialist offering 4.9 years experience; key strengths include core skills and domain knowledge; prefers remote work
-CAND_0005538,99,0.604442,Senior AI Engineer with 5.9 yrs experience; notable fit on Natural Language Processing and Python; highly responsive to recruiters (81%)
-CAND_0055951,100,0.603312,Analytics Engineer showing 7.2 yrs of history; matches well on Python and domain knowledge; highly responsive to recruiters (78%)
+CAND_0077337,1,0.677181,Staff Machine Learning Engineer showing 7.0 yrs of history; matches well on RAG and Sentence Transformers; prefers remote work
+CAND_0002025,2,0.676168,Senior AI Engineer with 5.9 yrs experience; notable fit on Sentence Transformers and NLP; highly responsive to recruiters (80%)
+CAND_0046525,3,0.663016,Experienced Senior Machine Learning Engineer (6.1 yrs); demonstrates strong Sentence Transformers and NLP alignment; highly responsive to recruiters (88%)
+CAND_0006567,4,0.655686,Experienced Senior AI Engineer (7.9 yrs); demonstrates strong Python and NLP alignment; highly responsive to recruiters (79%)
+CAND_0030468,5,0.648893,Experienced Senior Applied Scientist (5.4 yrs); demonstrates strong core skills and domain knowledge alignment; prefers remote work
+CAND_0037980,6,0.644434,Senior Applied Scientist offering 9.0 years experience; key strengths include Search Infrastructure and NLP; marked as actively looking
+CAND_0070514,7,0.643870,Experienced AI Specialist (5.5 yrs); demonstrates strong Python and domain knowledge alignment; highly responsive to recruiters (80%)
+CAND_0088025,8,0.643414,Experienced Staff Machine Learning Engineer (8.6 yrs); demonstrates strong RAG and Python alignment; highly responsive to recruiters (83%)
+CAND_0086022,9,0.642864,Senior Applied Scientist with 5.3 yrs experience; notable fit on NLP and Sentence Transformers; marked as actively looking
+CAND_0008425,10,0.638778,Experienced Senior NLP Engineer (7.8 yrs); demonstrates strong Sentence Transformers and NLP alignment; prefers remote work
+CAND_0096142,11,0.638541,Applied ML Engineer offering 5.0 years experience; key strengths include Python and NLP; notice period is long (120 days)
+CAND_0080766,12,0.636857,Staff Machine Learning Engineer showing 8.8 yrs of history; matches well on Search Infrastructure and Python; profile is complete and verified
+CAND_0002743,13,0.635954,Senior Software Engineer with 5.7 yrs experience; notable fit on NLP and domain knowledge; notice period is long (120 days)
+CAND_0055905,14,0.635846,Senior Machine Learning Engineer offering 8.1 years experience; key strengths include Python and domain knowledge; prefers remote work
+CAND_0061257,15,0.635646,Staff Machine Learning Engineer offering 8.0 years experience; key strengths include Search Infrastructure and Python; highly responsive to recruiters (87%)
+CAND_0024878,16,0.635632,AI Specialist showing 5.7 yrs of history; matches well on NLP and domain knowledge; highly responsive to recruiters (84%)
+CAND_0020991,17,0.635393,Junior ML Engineer with 4.9 yrs; strong in Python and domain knowledge; notice period is long (120 days)
+CAND_0046064,18,0.635049,Senior NLP Engineer with 8.9 yrs; strong in Python and domain knowledge; highly responsive to recruiters (78%)
+CAND_0070398,19,0.634356,Experienced Machine Learning Engineer (7.2 yrs); demonstrates strong RAG and Python alignment; notice period is long (120 days)
+CAND_0043228,20,0.634281,Applied ML Engineer offering 6.8 years experience; key strengths include NLP and Sentence Transformers; profile is complete and verified
+CAND_0078262,21,0.634113,ML Engineer showing 4.9 yrs of history; matches well on Sentence Transformers and RAG; marked as actively looking
+CAND_0050876,22,0.633792,Applied ML Engineer offering 6.0 years experience; key strengths include Sentence Transformers and Python; marked as actively looking
+CAND_0074342,23,0.632456,Experienced Data Scientist (5.7 yrs); demonstrates strong Sentence Transformers and RAG alignment; prefers remote work
+CAND_0074735,24,0.631505,Applied ML Engineer showing 5.5 yrs of history; matches well on RAG and domain knowledge; highly responsive to recruiters (77%)
+CAND_0005260,25,0.630560,Senior NLP Engineer with 5.2 yrs experience; notable fit on Python and NLP; highly responsive to recruiters (86%)
+CAND_0093763,26,0.629410,Senior Software Engineer (ML) with 5.0 yrs; strong in Sentence Transformers and domain knowledge; prefers remote work
+CAND_0092706,27,0.628024,AI Research Engineer showing 5.8 yrs of history; matches well on Sentence Transformers and domain knowledge; notice period is long (120 days)
+CAND_0004402,28,0.627161,AI Research Engineer with 6.0 yrs experience; notable fit on Sentence Transformers and domain knowledge; highly responsive to recruiters (83%)
+CAND_0002120,29,0.627100,ML Engineer with 6.5 yrs experience; notable fit on RAG and domain knowledge; highly responsive to recruiters (72%)
+CAND_0037944,30,0.627100,Senior Data Scientist with 4.9 yrs; strong in Python and Sentence Transformers; marked as actively looking
+CAND_0071974,31,0.625396,Senior AI Engineer with 7.8 yrs; strong in Sentence Transformers and RAG; highly responsive to recruiters (76%)
+CAND_0099806,32,0.625052,AI Engineer with 4.6 yrs experience; notable fit on RAG and Sentence Transformers; highly responsive to recruiters (76%)
+CAND_0011687,33,0.624240,Senior NLP Engineer offering 7.8 years experience; key strengths include core skills and domain knowledge; highly responsive to recruiters (89%)
+CAND_0052328,34,0.624116,Recommendation Systems Engineer with 6.5 yrs; strong in Sentence Transformers and Python; highly responsive to recruiters (79%)
+CAND_0064326,35,0.623730,Search Engineer showing 7.6 yrs of history; matches well on RAG and Python; highly responsive to recruiters (94%)
+CAND_0098288,36,0.622693,Junior ML Engineer with 6.7 yrs experience; notable fit on NLP and Python; marked as actively looking
+CAND_0064888,37,0.622554,ML Engineer offering 5.8 years experience; key strengths include core skills and domain knowledge; prefers remote work
+CAND_0063622,38,0.621881,Computer Vision Engineer with 5.2 yrs; strong in NLP and domain knowledge; highly responsive to recruiters (92%)
+CAND_0081846,39,0.621862,Lead AI Engineer with 6.7 yrs; strong in Python and domain knowledge; prefers remote work
+CAND_0058688,40,0.621590,AI Engineer with 6.7 yrs; strong in core skills and domain knowledge; highly responsive to recruiters (74%)
+CAND_0011162,41,0.621232,Recommendation Systems Engineer offering 5.8 years experience; key strengths include Sentence Transformers and Python; highly responsive to recruiters (75%)
+CAND_0098454,42,0.621043,Experienced AI Specialist (6.6 yrs); demonstrates strong NLP and domain knowledge alignment; highly responsive to recruiters (87%)
+CAND_0041918,43,0.619128,AI Specialist showing 5.7 yrs of history; matches well on core skills and domain knowledge; highly responsive to recruiters (87%)
+CAND_0077956,44,0.618538,Experienced Computer Vision Engineer (6.4 yrs); demonstrates strong core skills and domain knowledge alignment; notice period is long (120 days)
+CAND_0094482,45,0.618288,Junior ML Engineer showing 6.4 yrs of history; matches well on core skills and domain knowledge; highly responsive to recruiters (85%)
+CAND_0086154,46,0.618263,Data Scientist offering 6.8 years experience; key strengths include core skills and domain knowledge; highly responsive to recruiters (90%)
+CAND_0030784,47,0.617887,Data Scientist showing 4.4 yrs of history; matches well on Python and Sentence Transformers; highly responsive to recruiters (90%)
+CAND_0070525,48,0.617492,Senior Software Engineer (ML) with 5.4 yrs; strong in Python and domain knowledge; highly responsive to recruiters (93%)
+CAND_0018722,49,0.617426,Experienced Recommendation Systems Engineer (6.6 yrs); demonstrates strong Python and domain knowledge alignment; highly responsive to recruiters (79%)
+CAND_0098952,50,0.617179,AI Research Engineer offering 5.5 years experience; key strengths include NLP and Python; prefers remote work
+CAND_0055960,51,0.616853,AI Specialist with 4.9 yrs experience; notable fit on core skills and domain knowledge; prefers remote work
+CAND_0068513,52,0.616727,Computer Vision Engineer with 4.0 yrs; strong in RAG and NLP; highly responsive to recruiters (80%)
+CAND_0076482,53,0.616477,ML Engineer showing 6.6 yrs of history; matches well on RAG and domain knowledge; highly responsive to recruiters (86%)
+CAND_0062247,54,0.616473,Experienced AI Engineer (7.3 yrs); demonstrates strong RAG and domain knowledge alignment; highly responsive to recruiters (78%)
+CAND_0043860,55,0.616072,Junior ML Engineer showing 6.1 yrs of history; matches well on core skills and domain knowledge; highly responsive to recruiters (81%)
+CAND_0005538,56,0.615871,Senior AI Engineer with 5.9 yrs experience; notable fit on Natural Language Processing and Python; highly responsive to recruiters (81%)
+CAND_0029367,57,0.615493,Senior Data Scientist offering 5.7 years experience; key strengths include Sentence Transformers and RAG; highly responsive to recruiters (77%)
+CAND_0098846,58,0.615227,AI Engineer with 7.6 yrs experience; notable fit on core skills and domain knowledge; marked as actively looking
+CAND_0018320,59,0.614989,Software Engineer with 7.0 yrs; strong in NLP and domain knowledge; highly responsive to recruiters (75%)
+CAND_0018499,60,0.614791,Experienced Senior Machine Learning Engineer (7.2 yrs); demonstrates strong RAG and domain knowledge alignment; prefers remote work
+CAND_0077296,61,0.614120,Computer Vision Engineer with 5.8 yrs; strong in core skills and domain knowledge; marked as actively looking
+CAND_0073804,62,0.613837,Analytics Engineer offering 7.2 years experience; key strengths include core skills and domain knowledge; marked as actively looking
+CAND_0052335,63,0.613140,Applied ML Engineer with 6.4 yrs experience; notable fit on NLP and Sentence Transformers; highly responsive to recruiters (79%)
+CAND_0033445,64,0.613043,ML Engineer showing 6.8 yrs of history; matches well on core skills and domain knowledge; highly responsive to recruiters (94%)
+CAND_0010149,65,0.612712,Experienced ML Engineer (6.9 yrs); demonstrates strong core skills and domain knowledge alignment; highly responsive to recruiters (82%)
+CAND_0081563,66,0.612044,ML Engineer with 6.9 yrs; strong in Sentence Transformers and NLP; marked as actively looking
+CAND_0087778,67,0.612038,Data Scientist showing 5.8 yrs of history; matches well on NLP and domain knowledge; highly responsive to recruiters (87%)
+CAND_0072660,68,0.611965,Machine Learning Engineer with 7.1 yrs experience; notable fit on Python and NLP; prefers remote work
+CAND_0060472,69,0.610989,Experienced Computer Vision Engineer (4.4 yrs); demonstrates strong NLP and Sentence Transformers alignment; marked as actively looking
+CAND_0067866,70,0.610648,Senior Software Engineer (ML) with 6.4 yrs experience; notable fit on core skills and domain knowledge; prefers remote work
+CAND_0054703,71,0.609670,Computer Vision Engineer showing 6.8 yrs of history; matches well on Python and NLP; prefers remote work
+CAND_0057736,72,0.609545,Computer Vision Engineer offering 6.2 years experience; key strengths include NLP and domain knowledge; highly responsive to recruiters (92%)
+CAND_0053605,73,0.609135,Senior Software Engineer (ML) with 6.9 yrs; strong in RAG and domain knowledge; highly responsive to recruiters (88%)
+CAND_0024466,74,0.608741,Experienced Search Engineer (5.2 yrs); demonstrates strong Sentence Transformers and NLP alignment; notice period is long (120 days)
+CAND_0029117,75,0.608684,Senior Software Engineer (ML) with 5.6 yrs experience; notable fit on Sentence Transformers and domain knowledge; highly responsive to recruiters (72%)
+CAND_0043637,76,0.608326,Junior ML Engineer with 5.5 yrs experience; notable fit on core skills and domain knowledge; highly responsive to recruiters (92%)
+CAND_0041669,77,0.607985,Recommendation Systems Engineer with 8.0 yrs experience; notable fit on core skills and domain knowledge; highly responsive to recruiters (77%)
+CAND_0051615,78,0.607933,Search Engineer with 4.6 yrs experience; notable fit on RAG and Sentence Transformers; prefers remote work
+CAND_0000165,79,0.607816,AI Specialist with 6.8 yrs experience; notable fit on Sentence Transformers and domain knowledge; notice period is long (120 days)
+CAND_0048558,80,0.607525,Data Scientist offering 6.7 years experience; key strengths include core skills and domain knowledge; highly responsive to recruiters (80%)
+CAND_0083852,81,0.606639,Data Scientist with 6.0 yrs; strong in Sentence Transformers and domain knowledge; highly responsive to recruiters (85%)
+CAND_0052195,82,0.606197,Computer Vision Engineer with 6.3 yrs experience; notable fit on Sentence Transformers and NLP; marked as actively looking
+CAND_0025335,83,0.606060,Data Scientist with 6.6 yrs experience; notable fit on NLP and RAG; marked as actively looking
+CAND_0055951,84,0.605924,Analytics Engineer showing 7.2 yrs of history; matches well on Python and domain knowledge; highly responsive to recruiters (78%)
+CAND_0099269,85,0.605825,Data Scientist with 5.5 yrs experience; notable fit on NLP and Python; notice period is long (120 days)
+CAND_0097079,86,0.605336,Computer Vision Engineer showing 5.7 yrs of history; matches well on NLP and domain knowledge; highly responsive to recruiters (79%)
+CAND_0043322,87,0.605267,.NET Developer with 8.9 yrs; strong in NLP and domain knowledge; marked as actively looking
+CAND_0093193,88,0.604910,Experienced Senior Machine Learning Engineer (7.9 yrs); demonstrates strong core skills and domain knowledge alignment; marked as actively looking
+CAND_0015578,89,0.604333,Experienced AI Engineer (5.4 yrs); demonstrates strong NLP and Sentence Transformers alignment; prefers remote work
+CAND_0017960,90,0.604257,Recommendation Systems Engineer offering 7.7 years experience; key strengths include Python and domain knowledge; highly responsive to recruiters (72%)
+CAND_0090110,91,0.604109,Experienced Data Analyst (5.2 yrs); demonstrates strong RAG and domain knowledge alignment; notice period is long (120 days)
+CAND_0003599,92,0.603880,Computer Vision Engineer with 6.5 yrs; strong in Sentence Transformers and Python; marked as actively looking
+CAND_0092255,93,0.603855,ML Engineer with 5.2 yrs; strong in RAG and domain knowledge; marked as actively looking
+CAND_0053591,94,0.603834,AI Engineer with 5.3 yrs; strong in Sentence Transformers and RAG; highly responsive to recruiters (81%)
+CAND_0083879,95,0.603592,Machine Learning Engineer offering 7.1 years experience; key strengths include Sentence Transformers and domain knowledge; marked as actively looking
+CAND_0003791,96,0.603567,ML Engineer with 6.6 yrs experience; notable fit on Python and domain knowledge; marked as actively looking
+CAND_0068932,97,0.603473,ML Engineer with 5.2 yrs experience; notable fit on RAG and domain knowledge; highly responsive to recruiters (82%)
+CAND_0077498,98,0.603426,Senior Software Engineer (ML) with 5.4 yrs; strong in Sentence Transformers and domain knowledge; highly responsive to recruiters (89%)
+CAND_0051292,99,0.603405,Applied ML Engineer offering 5.2 years experience; key strengths include NLP and RAG; marked as actively looking
+CAND_0023458,100,0.603040,Experienced AI Research Engineer (5.0 yrs); demonstrates strong RAG and Sentence Transformers alignment; prefers remote work

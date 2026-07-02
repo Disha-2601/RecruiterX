@@ -5,7 +5,7 @@ from typing import Optional, List, Union
 from fastapi import FastAPI, Depends, HTTPException, Query, Request
 from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy.orm import Session
-from sqlalchemy import desc, asc
+from sqlalchemy import desc, asc, text
 
 from .database import engine, Base, SessionLocal, get_db
 from .models import Organisation, OrgMember, Project, Candidate, ApiKey
@@ -35,6 +35,17 @@ MODEL_MAP = {
 def startup_event():
     Base.metadata.create_all(bind=engine)
     db = SessionLocal()
+    try:
+        # Dynamic SQL migrations to add new columns to candidates table if they are missing
+        for col_name, col_type in [("skill_match_score", "INTEGER"), ("education_score", "INTEGER"), ("consistency_penalty", "FLOAT")]:
+            try:
+                db.execute(text(f"ALTER TABLE candidates ADD COLUMN {col_name} {col_type}"))
+                db.commit()
+            except Exception:
+                db.rollback()
+    except Exception as e:
+        print(f"Migration error: {e}")
+        
     try:
         # Seed Organisation
         if not db.query(Organisation).filter(Organisation.id == "mock-local-org").first():

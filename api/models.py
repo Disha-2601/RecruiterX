@@ -1,5 +1,5 @@
 import datetime
-from sqlalchemy import Column, String, Integer, Boolean, DateTime, ForeignKey, Text, JSON
+from sqlalchemy import Column, String, Integer, Boolean, DateTime, ForeignKey, Text, JSON, Float
 from sqlalchemy.orm import relationship
 from .database import Base
 
@@ -45,6 +45,9 @@ class Candidate(Base):
     behaviour_score = Column(Integer, nullable=True)
     insider_score = Column(Integer, nullable=True)
     credibility_score = Column(Integer, nullable=True)
+    skill_match_score = Column(Integer, nullable=True)
+    education_score = Column(Integer, nullable=True)
+    consistency_penalty = Column(Float, nullable=True)
     final_score = Column(Integer, nullable=True)
     trajectory_label = Column(String, nullable=True)
     red_flags = Column(JSON, nullable=True)

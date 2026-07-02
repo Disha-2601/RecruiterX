@@ -1,50 +1,98 @@
 'use client';
 
-import React from 'react';
-import { Play, FileText, CheckCircle2, AlertOctagon, Activity, Key } from 'lucide-react';
+import React, { useState, useEffect, useRef } from 'react';
+import { useRouter } from 'next/navigation';
+import { Play, Key, Users, BarChart3, Activity, Zap, CheckCircle2, XCircle, Settings } from 'lucide-react';
 
-interface HeroProjectProps {
-  lastProject: any | null;
-  globalStats: {
-    totalCandidates: number;
-    avgQualificationRate: number;
-    activeProjectsCount: number;
-    apiKeyStatus: 'Active' | 'Missing';
-  };
-  onSelectProject: (project: any) => void;
+interface RecentProject {
+  id: number | string;
+  name: string;
+  role_title: string;
+  department: string;
+  latest_run_id: string | null;
+  latest_run_status: string | null;
+  candidate_count: number;
 }
 
-export default function HeroProject({ lastProject, globalStats, onSelectProject }: HeroProjectProps) {
-  
-  // Helper to render status badge
-  const getStatusBadge = (status: string) => {
+interface GlobalStats {
+  total_candidates: number;
+  avg_qualification_score: number;
+  active_runs: number;
+  api_key_status: 'ok' | 'missing';
+}
+
+interface HeroProjectProps {
+  project: RecentProject | null;
+  stats: GlobalStats;
+  onViewDetails: (id: string | number) => void;
+}
+
+// Animated count-up hook
+function useCountUp(target: number, duration: number = 1200) {
+  const [value, setValue] = useState(0);
+  const ref = useRef<number | null>(null);
+
+  useEffect(() => {
+    if (target === 0) {
+      setValue(0);
+      return;
+    }
+
+    const startTime = performance.now();
+    const animate = (currentTime: number) => {
+      const elapsed = currentTime - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      // Ease-out cubic
+      const eased = 1 - Math.pow(1 - progress, 3);
+      setValue(Math.round(eased * target));
+
+      if (progress < 1) {
+        ref.current = requestAnimationFrame(animate);
+      }
+    };
+
+    ref.current = requestAnimationFrame(animate);
+    return () => {
+      if (ref.current) cancelAnimationFrame(ref.current);
+    };
+  }, [target, duration]);
+
+  return value;
+}
+
+export default function HeroProject({ project, stats, onViewDetails }: HeroProjectProps) {
+  const router = useRouter();
+
+  // Animated stat values
+  const animatedCandidates = useCountUp(stats.total_candidates);
+  const animatedAvgQual = useCountUp(Math.round(stats.avg_qualification_score * 100));
+  const animatedActiveRuns = useCountUp(stats.active_runs);
+
+  // Status badge renderer per spec
+  const getStatusBadge = (status: string | null) => {
     switch (status) {
-      case 'draft':
-        return (
-          <span className="flex items-center gap-1 text-[10px] font-bold text-neutral-500 uppercase bg-neutral-100 border border-neutral-200 px-2 py-0.5 rounded">
-            <FileText className="w-3 h-3" />
-            <span>Draft</span>
-          </span>
-        );
-      case 'auditing':
-      case 'active':
-        return (
-          <span className="flex items-center gap-1 text-[10px] font-bold text-[#0000FF] uppercase bg-blue-50 border border-blue-100 px-2 py-0.5 rounded">
-            <Activity className="w-3 h-3 animate-pulse" />
-            <span>Analyzing</span>
-          </span>
-        );
       case 'complete':
         return (
-          <span className="flex items-center gap-1 text-[10px] font-bold text-emerald-700 uppercase bg-emerald-50 border border-emerald-100 px-2 py-0.5 rounded">
+          <span className="inline-flex items-center gap-1.5 text-[10px] font-bold text-emerald-700 uppercase bg-emerald-50 border border-emerald-200 px-2.5 py-1 rounded-full tracking-wider">
             <CheckCircle2 className="w-3 h-3" />
             <span>Complete</span>
           </span>
         );
+      case 'ranking':
+      case 'queued':
+      case 'indexing':
+      case 'active':
+      case 'auditing':
+        return (
+          <span className="inline-flex items-center gap-1.5 text-[10px] font-bold text-[#0000FF] uppercase bg-blue-50 border border-blue-200 px-2.5 py-1 rounded-full tracking-wider">
+            <Zap className="w-3 h-3 animate-pulse" />
+            <span>Analyzing</span>
+          </span>
+        );
       case 'failed':
         return (
-          <span className="flex items-center gap-1 text-[10px] font-bold text-rose-700 uppercase bg-rose-50 border border-rose-100 px-2 py-0.5 rounded">
-            <AlertOctagon className="w-3 h-3" />
+          <span className="inline-flex items-center gap-1.5 text-[10px] font-bold text-rose-700 uppercase bg-rose-50 border border-rose-200 px-2.5 py-1 rounded-full tracking-wider">
+            <XCircle className="w-3 h-3" />
             <span>Failed</span>
           </span>
         );
@@ -53,174 +101,147 @@ export default function HeroProject({ lastProject, globalStats, onSelectProject 
     }
   };
 
-  // Helper to parse completion counts
-  const getProgressDetails = (proj: any) => {
-    if (!proj.candidates) return { count: 0, completed: 0 };
-    const candidates = proj.candidates;
-    const completed = candidates.filter((c: any) => c.analysis_status === 'complete').length;
-    return {
-      count: candidates.length,
-      completed
-    };
-  };
+  // Determine if status is "active" (analyzing)
+  const isActiveStatus = (status: string | null) =>
+    ['ranking', 'queued', 'indexing', 'active', 'auditing'].includes(status || '');
 
   return (
-    <div className="w-full space-y-8 font-sans">
-      {/* Hero Card (Last Active Project) */}
-      {lastProject ? (
-        <div className="w-full bg-white border border-[#0000FF]/30 rounded-[32px] p-8 md:p-10 shadow-sm relative overflow-hidden flex flex-col md:flex-row md:items-center md:justify-between gap-8">
-          {/* Left half */}
-          <div className="space-y-4 max-w-xl">
-            <span className="text-[11px] font-bold text-[#0000FF] uppercase tracking-widest block">
-              Pick up where you left off
-            </span>
-            
-            <div className="space-y-2">
-              <div className="flex items-center gap-3 flex-wrap">
-                <h1 className="text-2xl md:text-3xl font-semibold text-neutral-900 tracking-tight leading-none">
-                  {lastProject.title}
-                </h1>
-                {getStatusBadge(lastProject.status)}
-              </div>
-              <p className="text-neutral-500 text-sm">
-                Target Role: <span className="font-medium text-neutral-800">{lastProject.role}</span>
-                {lastProject.department && ` • ${lastProject.department}`}
-              </p>
-            </div>
+    <div className="w-full space-y-8 font-body">
+      {/* ═══ Hero Card — Pick up where you left off ═══ */}
+      {project && (
+        <div className="relative w-full rounded-[32px] overflow-hidden reveal">
+          {/* Glassmorphic container with blue glow */}
+          <div
+            className="relative z-10 w-full bg-white/80 backdrop-blur-xl border border-[#0000FF]/15 rounded-[32px] p-8 md:p-10 flex flex-col md:flex-row md:items-center md:justify-between gap-8 transition-shadow duration-500 hover:shadow-glow-blue"
+            style={{ boxShadow: 'var(--shadow-card), 0 0 80px rgba(0,0,255,0.06)' }}
+          >
+            {/* Subtle gradient shimmer */}
+            <div
+              className="absolute inset-0 rounded-[32px] opacity-[0.03] pointer-events-none"
+              style={{
+                background: 'linear-gradient(135deg, transparent 0%, #0000FF 50%, transparent 100%)',
+                backgroundSize: '200% 200%',
+                animation: 'scanner-soft 6s ease-in-out infinite',
+              }}
+            />
 
-            {/* Metrics display depending on status */}
-            <div className="pt-2">
-              {lastProject.status === 'draft' && (
-                <p className="text-xs text-neutral-500">
-                  Ready to start evaluation. Upload a Job Description to begin.
+            {/* Left content */}
+            <div className="space-y-4 max-w-xl relative z-10">
+              <span className="text-[11px] font-bold text-[#0000FF] uppercase tracking-[0.2em] block font-display">
+                Pick up where you left off
+              </span>
+
+              <div className="space-y-2">
+                <div className="flex items-center gap-3 flex-wrap">
+                  <h1 className="text-2xl md:text-3xl font-semibold text-neutral-900 tracking-tight leading-none font-display">
+                    {project.name}
+                  </h1>
+                  {getStatusBadge(project.latest_run_status)}
+                </div>
+                <p className="text-neutral-500 text-sm font-body">
+                  Target Role: <span className="font-medium text-neutral-800">{project.role_title}</span>
+                  {project.department && ` • ${project.department}`}
                 </p>
+              </div>
+
+              {/* Live progress for active runs */}
+              {isActiveStatus(project.latest_run_status) && (
+                <div className="flex items-center gap-3 pt-1">
+                  <div className="relative">
+                    <div className="w-2.5 h-2.5 rounded-full bg-[#0000FF]" />
+                    <div className="absolute inset-0 w-2.5 h-2.5 rounded-full bg-[#0000FF] animate-ping" />
+                  </div>
+                  <span className="text-xs font-semibold text-[#0000FF] font-display">
+                    Live: {project.candidate_count} of {project.candidate_count} candidates analyzed
+                  </span>
+                </div>
               )}
 
-              {(lastProject.status === 'active' || lastProject.status === 'auditing') && (() => {
-                const { count, completed } = getProgressDetails(lastProject);
-                return (
-                  <div className="flex items-center gap-3">
-                    <div className="w-2.5 h-2.5 rounded-full bg-[#0000FF] animate-ping" />
-                    <span className="text-xs font-semibold text-[#0000FF]">
-                      Live: {completed} of {count} candidates analyzed
-                    </span>
-                  </div>
-                );
-              })()}
-
-              {lastProject.status === 'complete' && (() => {
-                const candidates = lastProject.candidates || [];
-                const complete = candidates.filter((c: any) => c.analysis_status === 'complete');
-                const qualified = complete.filter((c: any) => c.final_score > 65).length;
-                const rate = complete.length > 0 ? Math.round((qualified / complete.length) * 100) : 0;
-                
-                // Find top candidate
-                let topCandidateName = 'None';
-                let topCandidateScore = 0;
-                if (complete.length > 0) {
-                  const sorted = [...complete].sort((a, b) => (b.final_score || 0) - (a.final_score || 0));
-                  topCandidateName = sorted[0].name;
-                  topCandidateScore = sorted[0].final_score || 0;
-                }
-
-                return (
-                  <div className="flex items-baseline gap-6">
-                    <div>
-                      <span className="text-3xl font-medium tracking-tight text-[#0000FF]">
-                        {rate}%
-                      </span>
-                      <span className="text-[10px] text-neutral-400 font-bold uppercase tracking-wider block mt-1">
-                        Qualification Rate
-                      </span>
-                    </div>
-                    {topCandidateScore > 0 && (
-                      <div className="h-8 w-px bg-neutral-200 self-center" />
-                    )}
-                    {topCandidateScore > 0 && (
-                      <div>
-                        <span className="text-sm font-semibold text-neutral-800">
-                          {topCandidateName} ({topCandidateScore}/100)
-                        </span>
-                        <span className="text-[10px] text-neutral-400 font-bold uppercase tracking-wider block mt-1">
-                          Top Candidate
-                        </span>
-                      </div>
-                    )}
-                  </div>
-                );
-              })()}
-
-              {lastProject.status === 'failed' && (
-                <div className="text-rose-700 text-xs flex items-center gap-1.5 font-medium">
-                  <span>Failed during analysis: {lastProject.jd_structured?.error || 'Unknown server error'}</span>
+              {/* Completed status */}
+              {project.latest_run_status === 'complete' && (
+                <div className="flex items-center gap-2 pt-1">
+                  <CheckCircle2 className="w-4 h-4 text-emerald-600" />
+                  <span className="text-xs font-semibold text-emerald-700 font-display">
+                    {project.candidate_count} candidates ranked
+                  </span>
                 </div>
               )}
             </div>
-          </div>
 
-          {/* Right half: CTA Button */}
-          <div className="shrink-0 flex items-center">
-            <button
-              onClick={() => onSelectProject(lastProject)}
-              className="w-full md:w-auto bg-[#0000FF] hover:bg-[#0000CC] text-white text-xs font-semibold rounded-full px-6 py-3.5 transition-all flex items-center justify-center gap-2 active:scale-[0.98] shadow-md shadow-blue-500/10"
-            >
-              <span>{lastProject.status === 'draft' ? 'Continue Setup' : 'View Details'}</span>
-              <Play className="w-3.5 h-3.5 fill-current" />
-            </button>
+            {/* Right — View Details CTA */}
+            <div className="shrink-0 flex items-center relative z-10">
+              <button
+                onClick={() => onViewDetails(project.id)}
+                className="w-full md:w-auto bg-[#0000FF] hover:bg-[#0000CC] text-white text-sm font-semibold rounded-full px-7 py-3.5 transition-all flex items-center justify-center gap-2.5 active:scale-[0.97] shadow-lg shadow-blue-500/20 hover:shadow-xl hover:shadow-blue-500/30 font-display"
+              >
+                <span>View Details</span>
+                <Play className="w-3.5 h-3.5 fill-current" />
+              </button>
+            </div>
           </div>
-        </div>
-      ) : (
-        /* Empty Hero state */
-        <div className="w-full bg-white border border-neutral-100 rounded-[32px] p-8 text-center text-neutral-400 text-xs">
-          No projects started yet.
         </div>
       )}
 
-      {/* Global Stats Strip */}
-      <div className="w-full flex justify-between items-center py-5 border-y border-neutral-100 px-2 flex-wrap gap-y-4">
+      {/* ═══ Section 3 — Stats Strip ═══ */}
+      <div className="w-full flex justify-between items-stretch py-6 border-y border-neutral-100 px-1 flex-wrap gap-y-5 reveal reveal-delay-1">
         {/* Stat 1: Total Candidates */}
-        <div className="flex-1 min-w-[120px] text-center md:text-left">
-          <span className="text-2xl font-semibold text-neutral-900 leading-none">
-            {globalStats.totalCandidates}
+        <div className="flex-1 min-w-[130px] text-center md:text-left px-2">
+          <span className="text-3xl font-semibold text-neutral-900 leading-none font-data tabular-nums">
+            {animatedCandidates}
           </span>
-          <span className="text-[10px] font-bold text-neutral-400 uppercase tracking-wider block mt-1">
+          <span className="text-[10px] font-bold text-neutral-400 uppercase tracking-[0.15em] block mt-1.5 font-display">
             Total Candidates
           </span>
         </div>
 
-        <div className="hidden md:block h-6 w-px bg-neutral-200" />
+        <div className="hidden md:block w-px bg-neutral-200 self-stretch" />
 
-        {/* Stat 2: Avg Qualification Rate */}
-        <div className="flex-1 min-w-[120px] text-center md:text-left md:pl-6">
-          <span className="text-2xl font-semibold text-neutral-900 leading-none">
-            {globalStats.avgQualificationRate}%
+        {/* Stat 2: Avg Qualification */}
+        <div className="flex-1 min-w-[130px] text-center md:text-left px-2 md:pl-6">
+          <span className="text-3xl font-semibold text-neutral-900 leading-none font-data tabular-nums">
+            {animatedAvgQual}%
           </span>
-          <span className="text-[10px] font-bold text-neutral-400 uppercase tracking-wider block mt-1">
+          <span className="text-[10px] font-bold text-neutral-400 uppercase tracking-[0.15em] block mt-1.5 font-display">
             Avg Qualification
           </span>
         </div>
 
-        <div className="hidden md:block h-6 w-px bg-neutral-200" />
+        <div className="hidden md:block w-px bg-neutral-200 self-stretch" />
 
-        {/* Stat 3: Active Projects */}
-        <div className="flex-1 min-w-[120px] text-center md:text-left md:pl-6">
-          <span className="text-2xl font-semibold text-neutral-900 leading-none">
-            {globalStats.activeProjectsCount}
+        {/* Stat 3: Active Runs */}
+        <div className="flex-1 min-w-[130px] text-center md:text-left px-2 md:pl-6">
+          <span className="text-3xl font-semibold text-neutral-900 leading-none font-data tabular-nums">
+            {animatedActiveRuns}
           </span>
-          <span className="text-[10px] font-bold text-neutral-400 uppercase tracking-wider block mt-1">
+          <span className="text-[10px] font-bold text-neutral-400 uppercase tracking-[0.15em] block mt-1.5 font-display">
             Active Runs
           </span>
         </div>
 
-        <div className="hidden md:block h-6 w-px bg-neutral-200" />
+        <div className="hidden md:block w-px bg-neutral-200 self-stretch" />
 
-        {/* Stat 4: API Key Status */}
-        <div className="flex-1 min-w-[120px] text-center md:text-left md:pl-6">
-          <span className={`text-sm font-bold flex items-center justify-center md:justify-start gap-1 leading-none ${globalStats.apiKeyStatus === 'Active' ? 'text-emerald-600' : 'text-amber-500'}`}>
-            <Key className="w-3.5 h-3.5" />
-            <span>{globalStats.apiKeyStatus}</span>
+        {/* Stat 4: AI API Key Status */}
+        <div className="flex-1 min-w-[130px] text-center md:text-left px-2 md:pl-6">
+          <span
+            className={`text-sm font-bold flex items-center justify-center md:justify-start gap-1.5 leading-none ${
+              stats.api_key_status === 'ok'
+                ? 'text-emerald-600'
+                : 'text-amber-500'
+            }`}
+          >
+            {stats.api_key_status === 'ok' ? (
+              <>
+                <CheckCircle2 className="w-4 h-4" />
+                <span>Connected</span>
+              </>
+            ) : (
+              <>
+                <Settings className="w-4 h-4" />
+                <span>Missing</span>
+              </>
+            )}
           </span>
-          <span className="text-[10px] font-bold text-neutral-400 uppercase tracking-wider block mt-1 font-sans">
+          <span className="text-[10px] font-bold text-neutral-400 uppercase tracking-[0.15em] block mt-1.5 font-display">
             AI API Key Status
           </span>
         </div>
