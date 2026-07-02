@@ -2,7 +2,6 @@
 
 import React from 'react';
 import { useRouter } from 'next/navigation';
-import { createClient } from '@/utils/supabase/client';
 import { Building, LogOut, Plus } from 'lucide-react';
 
 interface NavbarProps {
@@ -12,11 +11,9 @@ interface NavbarProps {
 
 export default function Navbar({ activeOrgName, onOpenCreateModal }: NavbarProps) {
   const router = useRouter();
-  const supabase = createClient();
 
-  const handleLogout = async () => {
-    await supabase.auth.signOut();
-    router.push('/login');
+  const handleLogout = () => {
+    router.push('/');
   };
 
   return (

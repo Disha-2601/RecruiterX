@@ -13,6 +13,7 @@ export async function POST(req: Request) {
     const jdFile = formData.get('jd') as File;
     const candidatesFile = formData.get('candidates') as File | null;
     const reindex = formData.get('reindex') === 'true';
+    const skip_embed = formData.get('skip_embed') === 'true';
 
     if (!jdFile) {
       return NextResponse.json({ error: 'Missing Job Description file' }, { status: 400 });
@@ -50,44 +51,48 @@ export async function POST(req: Request) {
     const executionLogs: string[] = [];
     executionLogs.push("[SYSTEM] Uploaded files received successfully.");
 
-    // Step 1: parse_jd.py
-    executionLogs.push("[SYSTEM] Executing parse_jd.py to extract requirements...");
-    const jdCmd = `"${pythonExe}" parse_jd.py "${jdTempPath}"`;
-    try {
-      const { stdout, stderr } = await execPromise(jdCmd, { cwd: workDir });
-      if (stdout) executionLogs.push(stdout.trim());
-      if (stderr) executionLogs.push(`[WARN] ${stderr.trim()}`);
-    } catch (err: any) {
-      executionLogs.push(`[ERROR] JD Parsing failed: ${err.message}`);
-      return NextResponse.json({ success: false, logs: executionLogs, error: 'JD Parsing failed' }, { status: 500 });
-    }
-
-    // Step 2: build_index.py or embed_jd.py
-    const hasCache = fs.existsSync(path.join(cacheDir, 'candidate_features.parquet'));
-    
-    if (reindex && candidatesFile && candidatesFile.size > 0) {
-      executionLogs.push("[SYSTEM] Executing build_index.py (Rebuilding full candidate index)...");
-      const indexCmd = `"${pythonExe}" build_index.py "${candTempPath}"`;
-      try {
-        const { stdout, stderr } = await execPromise(indexCmd, { cwd: workDir });
-        if (stdout) executionLogs.push(stdout.trim());
-        if (stderr) executionLogs.push(`[WARN] ${stderr.trim()}`);
-      } catch (err: any) {
-        executionLogs.push(`[ERROR] Indexing failed: ${err.message}`);
-        return NextResponse.json({ success: false, logs: executionLogs, error: 'Embedding Indexing failed' }, { status: 500 });
-      }
-    } else if (!hasCache) {
-      return NextResponse.json({ error: 'Precomputed candidate index not found. Please upload candidates.jsonl and check "Rebuild Semantic Index" first.' }, { status: 400 });
+    if (skip_embed) {
+      executionLogs.push("[SYSTEM] skip_embed set. Bypassing requirements extraction and index generation. Running only rank.py...");
     } else {
-      executionLogs.push("[SYSTEM] Skipping candidate index rebuild. Running embed_jd.py to encode JD...");
-      const embedCmd = `"${pythonExe}" embed_jd.py`;
+      // Step 1: parse_jd.py
+      executionLogs.push("[SYSTEM] Executing parse_jd.py to extract requirements...");
+      const jdCmd = `"${pythonExe}" parse_jd.py "${jdTempPath}"`;
       try {
-        const { stdout, stderr } = await execPromise(embedCmd, { cwd: workDir });
+        const { stdout, stderr } = await execPromise(jdCmd, { cwd: workDir });
         if (stdout) executionLogs.push(stdout.trim());
         if (stderr) executionLogs.push(`[WARN] ${stderr.trim()}`);
       } catch (err: any) {
-        executionLogs.push(`[ERROR] JD Embedding failed: ${err.message}`);
-        return NextResponse.json({ success: false, logs: executionLogs, error: 'JD Embedding failed' }, { status: 500 });
+        executionLogs.push(`[ERROR] JD Parsing failed: ${err.message}`);
+        return NextResponse.json({ success: false, logs: executionLogs, error: 'JD Parsing failed' }, { status: 500 });
+      }
+
+      // Step 2: build_index.py or embed_jd.py
+      const hasCache = fs.existsSync(path.join(cacheDir, 'candidate_features.parquet'));
+      
+      if (reindex && candidatesFile && candidatesFile.size > 0) {
+        executionLogs.push("[SYSTEM] Executing build_index.py (Rebuilding full candidate index)...");
+        const indexCmd = `"${pythonExe}" build_index.py "${candTempPath}"`;
+        try {
+          const { stdout, stderr } = await execPromise(indexCmd, { cwd: workDir });
+          if (stdout) executionLogs.push(stdout.trim());
+          if (stderr) executionLogs.push(`[WARN] ${stderr.trim()}`);
+        } catch (err: any) {
+          executionLogs.push(`[ERROR] Indexing failed: ${err.message}`);
+          return NextResponse.json({ success: false, logs: executionLogs, error: 'Embedding Indexing failed' }, { status: 500 });
+        }
+      } else if (!hasCache) {
+        return NextResponse.json({ error: 'Precomputed candidate index not found. Please upload candidates.jsonl and check "Rebuild Semantic Index" first.' }, { status: 400 });
+      } else {
+        executionLogs.push("[SYSTEM] Skipping candidate index rebuild. Running embed_jd.py to encode JD...");
+        const embedCmd = `"${pythonExe}" embed_jd.py`;
+        try {
+          const { stdout, stderr } = await execPromise(embedCmd, { cwd: workDir });
+          if (stdout) executionLogs.push(stdout.trim());
+          if (stderr) executionLogs.push(`[WARN] ${stderr.trim()}`);
+        } catch (err: any) {
+          executionLogs.push(`[ERROR] JD Embedding failed: ${err.message}`);
+          return NextResponse.json({ success: false, logs: executionLogs, error: 'JD Embedding failed' }, { status: 500 });
+        }
       }
     }
 

@@ -64,10 +64,10 @@ export default function Navbar() {
               isHovered ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-4 pointer-events-none'
             }`}
           >
-            <a href="#cta" className="text-xs font-bold text-black/70 hover:text-black transition-colors whitespace-nowrap">
+            <a href="/dashboard" className="text-xs font-bold text-black/70 hover:text-black transition-colors whitespace-nowrap">
               Log in
             </a>
-            <a href="#cta" className="btn-primary !h-8 !px-4 !text-xs font-bold whitespace-nowrap">
+            <a href="/project" className="btn-primary !h-8 !px-4 !text-xs font-bold whitespace-nowrap">
               Get Started
               <ArrowRight className="w-3.5 h-3.5" />
             </a>
@@ -110,10 +110,10 @@ export default function Navbar() {
               </a>
             ))}
             <div className="border-t border-gray-100 pt-5 mt-1 flex flex-col gap-3">
-              <a href="#cta" className="btn-ghost text-sm justify-center text-black" onClick={() => setMobileOpen(false)}>
+              <a href="/dashboard" className="btn-ghost text-sm justify-center text-black" onClick={() => setMobileOpen(false)}>
                 Log in
               </a>
-              <a href="#cta" className="btn-primary text-sm w-full" onClick={() => setMobileOpen(false)}>
+              <a href="/project" className="btn-primary text-sm w-full" onClick={() => setMobileOpen(false)}>
                 Get Started
                 <ArrowRight className="w-4 h-4" />
               </a>

@@ -26,7 +26,11 @@ def main():
         sys.exit(1)
         
     print(f"Parsing job description: {jd_path}")
-    text = parse_docx(jd_path)
+    if jd_path.endswith('.docx'):
+        text = parse_docx(jd_path)
+    else:
+        with open(jd_path, 'r', encoding='utf-8', errors='ignore') as f:
+            text = f.read()
     
     # 1. Extract years of experience
     # Looking for patterns like "5-9 years" or "5 to 9 years"

@@ -37,6 +37,8 @@ export const metadata: Metadata = {
   },
 };
 
+import { Toaster } from "sonner";
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -44,7 +46,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${spaceGrotesk.variable} ${spaceMono.variable}`}>
-      <body className="font-body antialiased">{children}</body>
+      <body className="font-body antialiased text-neutral-800">
+        {children}
+        <Toaster position="top-right" richColors />
+      </body>
     </html>
   );
 }

@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { createClient } from '@/utils/supabase/client';
+import { api } from '@/utils/api-client';
 import { X, Sliders, AlertTriangle, CheckCircle, Info, ChevronRight, HelpCircle, Upload, Play, Building } from 'lucide-react';
 
 interface ProjectDetailsModalProps {
@@ -28,7 +28,7 @@ export default function ProjectDetailsModal({
   const [behWeight, setBehWeight] = useState(30);
   const [depthWeight, setDepthWeight] = useState(30);
 
-  const supabase = createClient();
+
 
   // Load project candidates
   useEffect(() => {
@@ -36,15 +36,55 @@ export default function ProjectDetailsModal({
 
     const fetchCandidates = async () => {
       try {
-        const { data, error } = await supabase
-          .from('candidates')
-          .select('*')
-          .eq('project_id', project.id);
+        let dbCandidates: any[] = [];
+        try {
+          const { data, error } = await api.db('candidates')
+            .select('*')
+            .eq('project_id', project.id);
+          if (!error && data) {
+            dbCandidates = data;
+          }
+        } catch (e) {
+          console.warn('Backend query failed, falling back to API');
+        }
 
-        if (error) throw error;
-        setCandidates(data || []);
-        if (data && data.length > 0) {
-          setActiveCandidateId(data[0].id);
+        if (dbCandidates.length === 0) {
+          // Fallback to real candidate list from local API
+          const res = await fetch('/api/candidates');
+          const apiData = await res.json();
+          if (Array.isArray(apiData)) {
+            dbCandidates = apiData.map((c: any) => {
+              const flags = [];
+              if (c.has_expert_low_duration) flags.push({ type: 'EXPERT_LOW_DURATION', text: 'Claims expert proficiency with low duration' });
+              if (c.has_yoe_mismatch) flags.push({ type: 'YOE_MISMATCH', text: 'Stated experience duration mismatch with career history' });
+              if (c.has_overlap) flags.push({ type: 'OVERLAP', text: 'Overlapping employment dates in career history' });
+              if (c.has_assessment_mismatch) flags.push({ type: 'ASSESSMENT_MISMATCH', text: 'Claimed proficiency mismatch with verified test scores' });
+              if (c.has_suspicious_uniformity) flags.push({ type: 'SUSPICIOUS_UNIFORMITY', text: 'Uniform expert proficiency claimed across all skills' });
+
+              return {
+                id: c.candidate_id,
+                project_id: project.id,
+                name: c.anonymized_name,
+                email: `${c.candidate_id.toLowerCase()}@redrob.local`,
+                resume_file_url: '#',
+                trajectory_score: Math.round(c.experience_fit * 100),
+                behaviour_score: Math.round(c.behavioral * 100),
+                insider_score: Math.round(c.education * 100),
+                credibility_score: Math.round(c.logistics_fit * 100),
+                final_score: Math.round(c.score * 100),
+                trajectory_label: c.years_of_experience > 7 ? 'SENIOR' : 'MID',
+                red_flags: flags,
+                insider_signals: c.consistency_penalty > 0 ? ['Consistency Gate Penalty Triggered'] : [],
+                interrogation_qs: c.consistency_penalty > 0 ? ['Explain the discrepancies flagged in your career history validation.'] : [],
+                narrative: c.reasoning
+              };
+            });
+          }
+        }
+
+        setCandidates(dbCandidates);
+        if (dbCandidates.length > 0) {
+          setActiveCandidateId(dbCandidates[0].id);
         }
       } catch (err) {
         console.warn('Error fetching candidates:', err);
@@ -52,7 +92,7 @@ export default function ProjectDetailsModal({
     };
 
     fetchCandidates();
-  }, [isOpen, project, supabase]);
+  }, [isOpen, project]);
 
   // Recalculate scores and re-sort when weights change
   const processedCandidates = React.useMemo(() => {
@@ -96,8 +136,7 @@ export default function ProjectDetailsModal({
 
     try {
       // 1. Update project status and JD text
-      const { error: projError } = await supabase
-        .from('projects')
+      const { error: projError } = await api.db('projects')
         .update({
           jd_raw_text: jdText.trim(),
           status: 'auditing',
@@ -122,7 +161,7 @@ export default function ProjectDetailsModal({
 
         // Insert mock candidates
         for (let i = 0; i < mockNames.length; i++) {
-          await supabase.from('candidates').insert({
+          await api.db('candidates').insert({
             project_id: project.id,
             org_id: project.org_id,
             name: mockNames[i],
@@ -164,8 +203,7 @@ export default function ProjectDetailsModal({
         };
 
         // Update project to complete
-        await supabase
-          .from('projects')
+        await api.db('projects')
           .update({
             status: 'complete',
             jd_structured: { 
@@ -234,12 +272,24 @@ export default function ProjectDetailsModal({
               Role: <span className="font-medium text-neutral-800">{project.role}</span>
             </p>
           </div>
-          <button
-            onClick={onClose}
-            className="text-neutral-400 hover:text-neutral-600 transition-colors p-2 hover:bg-neutral-100 rounded-full"
-          >
-            <X className="w-4 h-4" />
-          </button>
+          <div className="flex items-center gap-3">
+            {project.status === 'complete' && (
+              <a
+                href="/api/export"
+                download
+                className="bg-white hover:bg-neutral-50 text-neutral-700 border border-neutral-200 text-xs font-semibold rounded-full px-4 py-2 transition-all flex items-center gap-1.5 active:scale-[0.98] shadow-sm select-none cursor-pointer"
+              >
+                <Upload className="w-3.5 h-3.5 rotate-180" />
+                <span>Download CSV</span>
+              </a>
+            )}
+            <button
+              onClick={onClose}
+              className="text-neutral-400 hover:text-neutral-600 transition-colors p-2 hover:bg-neutral-100 rounded-full"
+            >
+              <X className="w-4 h-4" />
+            </button>
+          </div>
         </div>
 
         {/* Modal Content Router by Status */}

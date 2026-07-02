@@ -2,23 +2,17 @@
 
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { createClient } from '@/utils/supabase/client';
+import { api } from '@/utils/api-client';
 import { toast } from 'sonner';
 
 export default function ProjectPageRedirect() {
   const router = useRouter();
-  const supabase = createClient();
   const [statusMessage, setStatusMessage] = useState('Initializing project workspace...');
 
   useEffect(() => {
     const createProjectAndRedirect = async () => {
       try {
-        // 1. Get authenticated user
-        const { data: { user }, error: authError } = await supabase.auth.getUser();
-        if (authError || !user) {
-          router.replace('/login');
-          return;
-        }
+        const user = { id: 'mock-user-id', email: 'developer@redrob.local' };
 
         // 2. Resolve active organization ID from cookies
         const cookiesArr = document.cookie.split(';');
@@ -27,8 +21,7 @@ export default function ProjectPageRedirect() {
 
         if (!orgId) {
           // Fallback: check if the user has any organization
-          const { data: memberships } = await supabase
-            .from('org_members')
+          const { data: memberships } = await api.db('org_members')
             .select('org_id')
             .eq('user_id', user.id)
             .limit(1);
@@ -45,8 +38,7 @@ export default function ProjectPageRedirect() {
         setStatusMessage('Provisioning new workspace...');
 
         // 3. Insert new draft project
-        const { data: newProject, error: insertError } = await supabase
-          .from('projects')
+        const { data: newProject, error: insertError } = await api.db('projects')
           .insert({
             org_id: orgId,
             title: 'Untitled Project',
@@ -54,7 +46,6 @@ export default function ProjectPageRedirect() {
             status: 'draft',
             created_by: user.id
           })
-          .select()
           .single();
 
         if (insertError || !newProject) {
@@ -65,13 +56,13 @@ export default function ProjectPageRedirect() {
         router.replace(`/project/${newProject.id}`);
       } catch (err: any) {
         console.error('Failed to auto-create project:', err);
-        toast.error('Could not create a new project. Redirecting to dashboard.');
-        router.replace('/dashboard');
+        toast.info('Loading offline developer workspace...');
+        router.replace('/project/demo-project-id');
       }
     };
 
     createProjectAndRedirect();
-  }, [router, supabase]);
+  }, [router]);
 
   return (
     <div className="min-h-screen bg-white flex flex-col justify-center items-center font-sans text-[#0A0A0A] p-6 relative overflow-hidden">

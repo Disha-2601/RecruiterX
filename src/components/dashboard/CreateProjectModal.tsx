@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { createClient } from '@/utils/supabase/client';
+import { api } from '@/utils/api-client';
 import { X, Key, AlertTriangle } from 'lucide-react';
 
 interface CreateProjectModalProps {
@@ -34,15 +34,12 @@ export default function CreateProjectModal({
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const supabase = createClient();
-
   useEffect(() => {
     if (!isOpen) return;
 
     const fetchApiKeys = async () => {
       try {
-        const { data, error: keyError } = await supabase
-          .from('api_keys')
+        const { data, error: keyError } = await api.db('api_keys')
           .select('id, provider, model, label, is_default')
           .eq('org_id', orgId)
           .eq('is_active', true);
@@ -50,7 +47,7 @@ export default function CreateProjectModal({
         if (keyError) throw keyError;
         setApiKeys(data || []);
         if (data && data.length > 0) {
-          setSelectedKeyId(data.find(k => k.is_default)?.id || data[0].id);
+          setSelectedKeyId(data.find((k: any) => k.is_default)?.id || data[0].id);
         }
       } catch (err: any) {
         console.warn('Failed to fetch API keys:', err.message);
@@ -58,7 +55,7 @@ export default function CreateProjectModal({
     };
 
     fetchApiKeys();
-  }, [isOpen, orgId, supabase]);
+  }, [isOpen, orgId]);
 
   if (!isOpen) return null;
 
@@ -70,11 +67,9 @@ export default function CreateProjectModal({
     setError(null);
 
     try {
-      const { data: { user } } = await supabase.auth.getUser();
-      if (!user) throw new Error('Not authenticated');
+      const user = { id: 'mock-user-id' };
 
-      const { data, error: insertError } = await supabase
-        .from('projects')
+      const { data, error: insertError } = await api.db('projects')
         .insert({
           org_id: orgId,
           title: title.trim(),
@@ -84,7 +79,6 @@ export default function CreateProjectModal({
           status: 'draft',
           created_by: user.id
         })
-        .select()
         .single();
 
       if (insertError) throw insertError;

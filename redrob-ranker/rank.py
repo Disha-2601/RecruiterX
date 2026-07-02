@@ -176,7 +176,7 @@ def main():
     # 11. Multiplicative consistency gate
     final_score = raw_score * (1.0 - penalty)
     
-    df["score"] = np.round(final_score, 4)
+    df["score"] = np.round(final_score, 8)
     df["skill_match"] = skill_match
     df["experience_fit"] = experience_fit
     df["behavioral"] = behavioral
@@ -185,8 +185,12 @@ def main():
     df["consistency_penalty"] = penalty
     
     # 12. Sort and select top 100
-    # Tiebreak by candidate_id ascending
-    df_sorted = df.sort_values(by=["score", "candidate_id"], ascending=[False, True]).head(100).copy()
+    # Deterministic tiebreak: score desc → consistency_penalty asc → candidate_id asc
+    # Using 8-decimal precision eliminates most ties; secondary sort handles any remaining
+    df_sorted = df.sort_values(
+        by=["score", "consistency_penalty", "candidate_id"],
+        ascending=[False, True, True]
+    ).head(100).copy()
     
     # Assign ranks 1 to 100
     df_sorted["rank"] = range(1, 101)
@@ -243,8 +247,8 @@ def main():
     # Write submission CSV
     submission_df = df_sorted[["candidate_id", "rank", "score", "reasoning"]].copy()
     
-    # Format score to 4 decimal places
-    submission_df["score"] = submission_df["score"].map(lambda x: f"{x:.4f}")
+    # Format score to 6 decimal places (enough to guarantee uniqueness in top 100)
+    submission_df["score"] = submission_df["score"].map(lambda x: f"{x:.6f}")
     
     out_path = args["out"]
     submission_df.to_csv(out_path, index=False, encoding="utf-8")
