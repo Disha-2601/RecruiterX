@@ -4,15 +4,12 @@ team_name: "MatchMatrix"
 primary_contact:
   name: "Disha Gupta"
   email: "disha.gupta@gmail.com"
-  phone: "+91-XXXXXXXXXX"
 
 team_members:
   - name: "Disha Gupta"
-    email: "disha.gupta@gmail.com"
-    role: "Team Lead"
   - name: "Aashish Jaiswal"
-    email: "jaisw.aashish@gmail.com"
-    role: "Fullstack / ML Engineer"
+  - name: "sarvagya"
+  - name: "vijit"
 
 github_repo: "https://github.com/aashishjaiswal1103/India-run-hackathon.git"
 sandbox_link: "https://huggingface.co/spaces/aashishjaiswal1103/redrob-ranker"
@@ -28,12 +25,6 @@ compute:
   has_network_during_ranking: false
   pre_computation_required: true
   pre_computation_time_minutes: 20
-
-ai_tools_used:
-  - "None"
-
-ai_usage_summary: |
-  No AI tools used.
 
 methodology_summary: |
   Our solution leverages offline precomputation to build robust and efficient candidate index matrices. We extract flat features into a Parquet table and use SentenceTransformer (all-MiniLM-L6-v2) to embed skill lists (100K) and career history entries (300K roles) offline using a multi-process CPU pool. During evaluation, rank.py loads the precomputed files and executes in under 30 seconds using vectorized numpy matrix operations to perform embedding similarity, trapezoidal experience fit, reachability/availability scoring, and consistency/honeypot checks. Human-readable deterministic reasoning is generated at the end to guarantee absolute alignment between scores and explanations.
