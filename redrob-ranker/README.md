@@ -1,4 +1,4 @@
-# Redrob Candidate Ranker — Antigravity
+# Redrob Candidate Ranker
 
 This repository houses the candidate ranking system designed for the Redrob Senior AI/ML Engineer position. It scores and ranks 100,000 candidates based on job description fit, skills, career history, behavioral signals, and consistency constraints.
 
