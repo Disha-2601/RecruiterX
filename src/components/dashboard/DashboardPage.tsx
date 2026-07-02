@@ -382,26 +382,8 @@ export default function DashboardPage() {
     }
   };
 
-  const handleCreateNewProject = async () => {
-    if (!activeOrg || !user) return;
-    try {
-      setIsLoading(true);
-      const { data: newProject, error: insertError } = await api.db('projects')
-        .insert({
-          org_id: activeOrg.id,
-          title: 'Untitled Project',
-          role: 'Untitled Role',
-          status: 'draft',
-          created_by: user.id
-        })
-        .single();
-
-      if (insertError || !newProject) throw insertError || new Error('Failed to create project');
-      router.push(`/project/${newProject.id}`);
-    } catch (err: any) {
-      alert(`Failed to create project: ${err.message}`);
-      setIsLoading(false);
-    }
+  const handleCreateNewProject = () => {
+    router.push('/project/new');
   };
 
   if (isLoading) {

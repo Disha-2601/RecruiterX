@@ -59,6 +59,26 @@ def startup_event():
             )
             db.add(key)
             db.commit()
+
+        # Seed Demo Project
+        if not db.query(Project).filter(Project.id == "demo-project-id").first():
+            demo_project = Project(
+                id="demo-project-id",
+                org_id="mock-local-org",
+                title="Senior AI/ML Engineer Search",
+                role="Senior AI/ML Engineer",
+                department="Engineering",
+                seniority="Senior",
+                status="active",
+                created_by="mock-local-user",
+                jd_raw_text="Demo Job Description",
+                jd_structured={
+                    "must_have_skills": ["CUDA", "NCCL", "Python", "C++"],
+                    "nice_to_have_skills": ["Docker"]
+                }
+            )
+            db.add(demo_project)
+            db.commit()
     finally:
         db.close()
 

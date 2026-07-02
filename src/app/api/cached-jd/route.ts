@@ -16,17 +16,17 @@ export async function GET() {
 
     // Map to frontend interface exactly like parse-jd route does
     const responseData = {
-      must_have_skills: Object.keys(parsed.required_skills || {}),
-      nice_to_have_skills: Object.keys(parsed.nice_to_have_skills || {}),
-      implied_requirements: [
-        `Targeting ${parsed.min_years_experience}-${parsed.max_years_experience} years of experience.`,
-        `Preferred locations: ${parsed.preferred_locations?.join(', ') || 'Anywhere in India'}.`,
-        `Work mode preference: ${parsed.work_mode || 'Flexible'}.`,
-        `Target notice period: ${parsed.notice_period_days || 30} days.`
-      ],
-      inferred_seniority: parsed.min_years_experience >= 8 ? 'Principal/Director' : parsed.min_years_experience >= 5 ? 'Senior' : 'Mid/Junior',
-      stated_seniority: 'Senior',
-      jd_quality_score: 95,
+      must_have_skills: Object.entries(parsed.required_skills || {}).map(([name, weight]) => ({ name, weight: Number(weight) })),
+      nice_to_have_skills: Object.entries(parsed.nice_to_have_skills || {}).map(([name, weight]) => ({ name, weight: Number(weight) })),
+      experience_range: `${parsed.min_years_experience} – ${parsed.max_years_experience} years`,
+      work_mode: parsed.work_mode || 'Flexible',
+      locations: parsed.preferred_locations || [],
+      salary: (parsed.salary_band_inr_lpa?.min && parsed.salary_band_inr_lpa?.max) 
+        ? `₹${parsed.salary_band_inr_lpa.min}L – ₹${parsed.salary_band_inr_lpa.max}L` 
+        : 'Not stated',
+      seniority: parsed.min_years_experience >= 8 ? 'Principal/Director' : parsed.min_years_experience >= 5 ? 'Senior' : 'Mid/Junior',
+      notice_period: `${parsed.notice_period_days || 30} days preferred`,
+      quality_score: 95,
       audit_narrative: `Successfully analyzed the job description requirements. Extracted ${Object.keys(parsed.required_skills || {}).length} must-have dimensions and ${Object.keys(parsed.nice_to_have_skills || {}).length} nice-to-have indicators.`
     };
 
