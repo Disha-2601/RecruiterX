@@ -266,3 +266,55 @@ def db_delete(
         
     db.commit()
     return {"message": f"Successfully deleted {len(items)} rows"}
+
+@app.get("/api/v1/projects/recent")
+def get_recent_project(db: Session = Depends(get_db)):
+    p = db.query(Project).order_by(desc(Project.created_at)).first()
+    if not p:
+        return None
+    cand_count = db.query(Candidate).filter(Candidate.project_id == p.id).count()
+    return {
+        "id": p.id,
+        "name": p.title,
+        "role_title": p.role,
+        "department": p.department or "Engineering",
+        "latest_run_status": p.status,
+        "latest_run_id": f"run-{p.id}",
+        "candidate_count": cand_count
+    }
+
+@app.get("/api/v1/projects")
+def get_projects(db: Session = Depends(get_db)):
+    projects = db.query(Project).order_by(desc(Project.created_at)).all()
+    results = []
+    for p in projects:
+        cand_count = db.query(Candidate).filter(Candidate.project_id == p.id).count()
+        results.append({
+            "id": p.id,
+            "name": p.title,
+            "role_title": p.role,
+            "candidate_count": cand_count,
+            "latest_run_status": p.status,
+            "latest_run_id": f"run-{p.id}",
+            "created_at": p.created_at.isoformat() if p.created_at else None
+        })
+    return results
+
+@app.get("/api/v1/stats")
+def get_global_stats(db: Session = Depends(get_db)):
+    from sqlalchemy import func
+    total_candidates = db.query(Candidate).count()
+    
+    avg_score_raw = db.query(func.avg(Candidate.final_score)).scalar()
+    avg_qualification_score = (avg_score_raw / 100.0) if avg_score_raw is not None else 0.0
+    
+    active_runs = db.query(Project).filter(
+        Project.status.in_(["queued", "parsing_jd", "embedding", "ranking", "auditing"])
+    ).count()
+    
+    return {
+        "total_candidates": total_candidates,
+        "avg_qualification_score": avg_qualification_score,
+        "active_runs": active_runs,
+        "api_key_status": "missing"
+    }

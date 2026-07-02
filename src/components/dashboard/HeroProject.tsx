@@ -217,34 +217,6 @@ export default function HeroProject({ project, stats, onViewDetails }: HeroProje
             Active Runs
           </span>
         </div>
-
-        <div className="hidden md:block w-px bg-neutral-200 self-stretch" />
-
-        {/* Stat 4: AI API Key Status */}
-        <div className="flex-1 min-w-[130px] text-center md:text-left px-2 md:pl-6">
-          <span
-            className={`text-sm font-bold flex items-center justify-center md:justify-start gap-1.5 leading-none ${
-              stats.api_key_status === 'ok'
-                ? 'text-emerald-600'
-                : 'text-amber-500'
-            }`}
-          >
-            {stats.api_key_status === 'ok' ? (
-              <>
-                <CheckCircle2 className="w-4 h-4" />
-                <span>Connected</span>
-              </>
-            ) : (
-              <>
-                <Settings className="w-4 h-4" />
-                <span>Missing</span>
-              </>
-            )}
-          </span>
-          <span className="text-[10px] font-bold text-neutral-400 uppercase tracking-[0.15em] block mt-1.5 font-display">
-            AI API Key Status
-          </span>
-        </div>
       </div>
     </div>
   );
