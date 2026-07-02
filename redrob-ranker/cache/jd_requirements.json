@@ -1,0 +1,23 @@
+{
+  "title": "Senior AI/ML Engineer",
+  "required_skills": {
+    "Python": 1.0,
+    "Machine Learning": 0.8
+  },
+  "nice_to_have_skills": {
+    "Fine-tuning LLMs": 0.4,
+    "LoRA": 0.4,
+    "XGBoost": 0.4,
+    "Distributed Systems": 0.3
+  },
+  "min_years_experience": 10,
+  "max_years_experience": 50,
+  "salary_band_inr_lpa": {
+    "min": 0.0,
+    "max": 0.0
+  },
+  "work_mode": "onsite",
+  "preferred_locations": [],
+  "notice_period_days": 30,
+  "jd_text_for_embedding": "Role: Senior Machine Learning Engineer\nRequirements:\n- 10+ years of experience with Transformer models (BERT, GPT, Attention mechanisms).\n- Solid experience in training LLMs from scratch on multi-node GPU clusters.\n- Perfect knowledge of Python, PyTorch, Docker, Scikit-Learn.\n- Must have built custom CUDA kernels for hardware optimization.\n- Ability to manage a team of 4 junior developers and report directly to CTO."
+}

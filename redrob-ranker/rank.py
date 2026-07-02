@@ -33,20 +33,105 @@ def main():
     
     start_time = time.time()
     
-    # 1. Load cached files
-    print("Loading precomputed artifacts...")
-    candidate_ids = np.load(os.path.join("cache", "candidate_ids.npy"), allow_pickle=True)
-    skill_embeddings = np.load(os.path.join("cache", "skill_embeddings.npy"))
-    career_embeddings = np.load(os.path.join("cache", "career_embeddings.npy"))
-    jd_skill_embedding = np.load(os.path.join("cache", "jd_skill_embedding.npy"))
-    jd_career_embedding = np.load(os.path.join("cache", "jd_career_embedding.npy"))
-    
-    # Load candidate features parquet
-    df = pd.read_parquet(os.path.join("cache", "candidate_features.parquet"))
-    
-    # Load JD requirements json
-    with open(os.path.join("cache", "jd_requirements.json"), "r", encoding="utf-8") as f:
-        jd_req = json.load(f)
+    # 1. Load cached candidate files
+    print("Checking candidate precomputed artifacts...")
+    cache_dir = "cache"
+    required_cand_files = [
+        "candidate_ids.npy",
+        "skill_embeddings.npy",
+        "career_embeddings.npy",
+        "candidate_features.parquet"
+    ]
+    missing_files = [f for f in required_cand_files if not os.path.exists(os.path.join(cache_dir, f))]
+    if missing_files:
+        print(f"\nError: Precomputed candidate cache files are missing: {missing_files}", file=sys.stderr)
+        print("Because candidate features and embeddings are large binaries (~210MB total), they are not pushed to Git.", file=sys.stderr)
+        print("Please build the candidate index first by running:", file=sys.stderr)
+        print(f"    python build_index.py \"{args['candidates']}\"", file=sys.stderr)
+        sys.exit(1)
+
+    print("Loading precomputed candidate artifacts...")
+    candidate_ids = np.load(os.path.join(cache_dir, "candidate_ids.npy"), allow_pickle=True)
+    skill_embeddings = np.load(os.path.join(cache_dir, "skill_embeddings.npy")).astype(np.float32)
+    career_embeddings = np.load(os.path.join(cache_dir, "career_embeddings.npy")).astype(np.float32)
+    df = pd.read_parquet(os.path.join(cache_dir, "candidate_features.parquet"))
+
+    # 2. Load or compute Job Description requirements & embeddings
+    jd_path = args["jd"]
+    if not os.path.exists(jd_path):
+        print(f"Error: Job description file not found at '{jd_path}'", file=sys.stderr)
+        sys.exit(1)
+
+    # Read JD text
+    if jd_path.endswith('.docx'):
+        from docx import Document
+        doc = Document(jd_path)
+        full_text = []
+        for para in doc.paragraphs:
+            full_text.append(para.text)
+        for table in doc.tables:
+            for row in table.rows:
+                row_text = [cell.text for cell in row.cells]
+                full_text.append(" | ".join(row_text))
+        current_jd_text = "\n".join(full_text)
+    else:
+        with open(jd_path, 'r', encoding='utf-8', errors='ignore') as f:
+            current_jd_text = f.read()
+
+    # Check if we can reuse cached JD artifacts
+    jd_req_path = os.path.join(cache_dir, "jd_requirements.json")
+    jd_skill_emb_path = os.path.join(cache_dir, "jd_skill_embedding.npy")
+    jd_career_emb_path = os.path.join(cache_dir, "jd_career_embedding.npy")
+
+    reuse_jd_cache = False
+    if (os.path.exists(jd_req_path) and 
+        os.path.exists(jd_skill_emb_path) and 
+        os.path.exists(jd_career_emb_path)):
+        try:
+            with open(jd_req_path, "r", encoding="utf-8") as f:
+                cached_req = json.load(f)
+            if cached_req.get("jd_text_for_embedding") == current_jd_text:
+                reuse_jd_cache = True
+        except Exception:
+            pass
+
+    if reuse_jd_cache:
+        print("Loading cached job description requirements and embeddings...")
+        with open(jd_req_path, "r", encoding="utf-8") as f:
+            jd_req = json.load(f)
+        jd_skill_embedding = np.load(jd_skill_emb_path)
+        jd_career_embedding = np.load(jd_career_emb_path)
+    else:
+        print("Parsing and embedding job description on the fly...")
+        from parse_jd import parse_jd_text
+        jd_req = parse_jd_text(current_jd_text)
+
+        # Save parsed requirements to cache
+        os.makedirs(cache_dir, exist_ok=True)
+        with open(jd_req_path, "w", encoding="utf-8") as f:
+            json.dump(jd_req, f, indent=2)
+
+        # Embed JD on the fly
+        from sentence_transformers import SentenceTransformer
+        print("Loading embedding model for JD...")
+        model = SentenceTransformer("all-MiniLM-L6-v2")
+
+        # Concatenate JD required skills
+        jd_skills_text = ", ".join(jd_req.get("required_skills", {}).keys())
+        if not jd_skills_text.strip():
+            jd_skills_text = jd_req.get("title", "Senior AI/ML Engineer")
+
+        jd_skill_embedding = model.encode([jd_skills_text], convert_to_numpy=True)[0]
+        np.save(jd_skill_emb_path, jd_skill_embedding)
+
+        # JD full text
+        jd_text = jd_req.get("jd_text_for_embedding", "")
+        if not jd_text.strip():
+            jd_text = jd_skills_text
+
+        jd_career_embedding = model.encode([jd_text], convert_to_numpy=True)[0]
+        np.save(jd_career_emb_path, jd_career_embedding)
+        print("Successfully updated job description cache.")
         
     jd_skill_weights = jd_req.get("required_skills", {})
     min_yoe = jd_req.get("min_years_experience", 5.0)

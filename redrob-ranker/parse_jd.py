@@ -15,23 +15,7 @@ def parse_docx(file_path):
             full_text.append(" | ".join(row_text))
     return "\n".join(full_text)
 
-def main():
-    if len(sys.argv) < 2:
-        print("Usage: python parse_jd.py <path_to_jd.docx>")
-        sys.exit(1)
-        
-    jd_path = sys.argv[1]
-    if not os.path.exists(jd_path):
-        print(f"Error: {jd_path} does not exist.")
-        sys.exit(1)
-        
-    print(f"Parsing job description: {jd_path}")
-    if jd_path.endswith('.docx'):
-        text = parse_docx(jd_path)
-    else:
-        with open(jd_path, 'r', encoding='utf-8', errors='ignore') as f:
-            text = f.read()
-    
+def parse_jd_text(text):
     # 1. Extract years of experience
     # Looking for patterns like "5-9 years" or "5 to 9 years"
     min_yoe = 0
@@ -78,10 +62,6 @@ def main():
         print(f"Extracted salary band: {salary_band['min']} - {salary_band['max']} LPA")
         
     # 6. Extract/Map required skills and nice-to-have skills
-    # Since we need to match candidate skills exactly or fuzzy-match them,
-    # let's define the set of target skills we look for based on candidate schema/common skills
-    # We will map them to importance weights.
-    
     # Map keywords to candidate skill names and weights
     required_skill_mappings = {
         "Python": 1.0,
@@ -169,6 +149,26 @@ def main():
         "notice_period_days": notice_period,
         "jd_text_for_embedding": text
     }
+    return jd_requirements
+
+def main():
+    if len(sys.argv) < 2:
+        print("Usage: python parse_jd.py <path_to_jd.docx>")
+        sys.exit(1)
+        
+    jd_path = sys.argv[1]
+    if not os.path.exists(jd_path):
+        print(f"Error: {jd_path} does not exist.")
+        sys.exit(1)
+        
+    print(f"Parsing job description: {jd_path}")
+    if jd_path.endswith('.docx'):
+        text = parse_docx(jd_path)
+    else:
+        with open(jd_path, 'r', encoding='utf-8', errors='ignore') as f:
+            text = f.read()
+            
+    jd_requirements = parse_jd_text(text)
     
     # Create cache dir if not exists
     os.makedirs("cache", exist_ok=True)

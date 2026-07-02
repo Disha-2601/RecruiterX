@@ -1,6 +1,7 @@
 # Cache files (large binaries, embeddings, etc.)
-cache/*
-!cache/.gitkeep
+cache/temp_candidates.jsonl
+cache/temp_jd*
+cache/runs/
 
 # Python virtual environment
 .venv/

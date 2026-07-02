@@ -250,7 +250,7 @@ def main():
     # 2. Embed skills
     print("Embedding skills (multi-process)...")
     skill_embeddings = model.encode_multi_process(skills_texts, pool, batch_size=512)
-    np.save(os.path.join("cache", "skill_embeddings.npy"), skill_embeddings)
+    np.save(os.path.join("cache", "skill_embeddings.npy"), skill_embeddings.astype(np.float16))
     print("Saved skill embeddings.")
     
     # 3. Embed careers (duration-weighted average)
@@ -292,7 +292,7 @@ def main():
             
         career_embeddings[cand_idx] = weighted_sum / sum(weights)
         
-    np.save(os.path.join("cache", "career_embeddings.npy"), career_embeddings)
+    np.save(os.path.join("cache", "career_embeddings.npy"), career_embeddings.astype(np.float16))
     print("Saved career history embeddings.")
     
     # 4. Embed JD if cache/jd_requirements.json exists
