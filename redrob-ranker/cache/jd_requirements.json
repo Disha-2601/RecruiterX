@@ -1,23 +1,38 @@
 {
-  "title": "Senior AI/ML Engineer",
+  "title": "FRONTEND DEVELOPER",
   "required_skills": {
-    "Python": 1.0,
-    "Machine Learning": 0.8
+    "HTML": 1.0,
+    "HTML5": 1.0,
+    "CSS": 1.0,
+    "CSS3": 1.0,
+    "JavaScript": 1.0,
+    "ES6": 0.9,
+    "React": 1.0,
+    "React.js": 1.0,
+    "Responsive Design": 0.9,
+    "REST APIs": 0.9,
+    "Git & GitHub": 0.8,
+    "Git": 0.8,
+    "GitHub": 0.8,
+    "UI/UX": 0.8,
+    "Cross-browser compatibility": 0.8,
+    "Accessibility": 0.7,
+    "Wireframes": 0.7
   },
   "nice_to_have_skills": {
-    "Fine-tuning LLMs": 0.4,
-    "LoRA": 0.4,
-    "XGBoost": 0.4,
-    "Distributed Systems": 0.3
+    "Portfolio": 0.4
   },
-  "min_years_experience": 10,
-  "max_years_experience": 50,
+  "min_years_experience": 0,
+  "max_years_experience": 2,
   "salary_band_inr_lpa": {
-    "min": 0.0,
-    "max": 0.0
+    "min": 4.0,
+    "max": 8.0
   },
-  "work_mode": "onsite",
-  "preferred_locations": [],
-  "notice_period_days": 30,
-  "jd_text_for_embedding": "Role: Senior Machine Learning Engineer\nRequirements:\n- 10+ years of experience with Transformer models (BERT, GPT, Attention mechanisms).\n- Solid experience in training LLMs from scratch on multi-node GPU clusters.\n- Perfect knowledge of Python, PyTorch, Docker, Scikit-Learn.\n- Must have built custom CUDA kernels for hardware optimization.\n- Ability to manage a team of 4 junior developers and report directly to CTO."
+  "work_mode": "hybrid",
+  "preferred_locations": [
+    "Noida",
+    "Uttar Pradesh"
+  ],
+  "notice_period_days": 0,
+  "jd_text_for_embedding": "NOVATECH SOLUTIONS \u00b7 DEMO JOB DESCRIPTION\nPage 1\n FRONTEND DEVELOPER\n Internship & Full-Time Opportunities\nNovaTech Solutions Pvt. Ltd.\nNoida, Uttar Pradesh \u00b7 On-site / Hybrid\nInternship stipend\n\u25a015,000\u2013\u25a025,000/month\nFull-time CTC\n\u25a04\u20138 LPA\nExperience\nFresher / 0\u20132 years\nJoining\nImmediate / As per availability\n*Fictional company and illustrative compensation figures for demo purposes only.\nAbout the Company\nNovaTech Solutions is a fictional technology company focused on building modern web applications, SaaS platforms,\nand digital solutions for businesses. We are looking for enthusiastic frontend developers who enjoy creating\nresponsive, user-friendly, and high-performance web interfaces.\nRoles & Responsibilities\n\u007f Develop responsive and interactive user interfaces using HTML, CSS, JavaScript, and React.js.\n\u007f Convert UI/UX designs and wireframes into functional web pages.\n\u007f Build reusable components and maintain clean, readable code.\n\u007f Integrate frontend applications with REST APIs and backend services.\n\u007f Optimize application performance, accessibility, and cross-browser compatibility.\n\u007f Debug issues, test features, and collaborate with designers and backend developers.\n\u007f Use Git and GitHub for version control and team collaboration.\nRequired Skills\nHTML5 \u00b7 CSS3 \u00b7 JavaScript (ES6+) \u00b7 React.js \u00b7 Responsive Design \u00b7 REST APIs \u00b7 Git & GitHub\nEligibility Criteria\n\u007f B.Tech/B.E. in Computer Science, IT, or a related discipline; relevant students and graduates may apply.\n\u007f Strong understanding of HTML, CSS, JavaScript, and basic programming concepts.\n\u007f Familiarity with React.js through coursework, personal projects, or internships.\n\u007f Good problem-solving, communication, and teamwork skills.\n\u007f A portfolio, GitHub profile, or live project deployment is an advantage.\nPosition Details\n1. Frontend Developer Intern\nDuration: 3\u20136 months. Work with experienced developers, implement UI components, fix bugs, learn industry\nworkflows, and contribute to live projects. High-performing interns may be considered for a full-time opportunity.\n2. Frontend Developer \u2014 Full-Time\nWork independently on frontend features, contribute to application architecture, integrate APIs, review code, and\nimprove application performance in a collaborative engineering team.\nSelection Process\n\nNOVATECH SOLUTIONS \u00b7 DEMO JOB DESCRIPTION\nPage 2\n1. Resume and portfolio screening\n2. Online technical assessment (JavaScript, HTML, CSS, and React)\n3. Technical interview and project discussion\n4. HR interview and final offer\nHow to Apply\nSubmit your updated resume, GitHub profile, portfolio link, and preferred role (Internship or Full-Time) through the\ncompany's careers page or recruitment email.\nDemo contact: careers@novatech-demo.example\nDemo contact address only; not a real recruitment email.\n"
 }

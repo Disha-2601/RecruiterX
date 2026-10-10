@@ -24,7 +24,7 @@ export default function OrgSelectionPage() {
   useEffect(() => {
     const checkUserAndFetchOrgs = async () => {
       setError(null);
-      const user = { id: 'mock-user-id', email: 'developer@redrob.local' };
+      const user = { id: 'mock-user-id', email: 'developer@sample.local' };
 
       try {
         const { data, error: fetchError } = await api.db('org_members')

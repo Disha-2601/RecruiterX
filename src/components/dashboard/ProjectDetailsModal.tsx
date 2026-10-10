@@ -65,7 +65,7 @@ export default function ProjectDetailsModal({
                 id: c.candidate_id,
                 project_id: project.id,
                 name: c.anonymized_name,
-                email: `${c.candidate_id.toLowerCase()}@redrob.local`,
+                email: `${c.candidate_id.toLowerCase()}@sample.local`,
                 resume_file_url: '#',
                 trajectory_score: Math.round(c.experience_fit * 100),
                 behaviour_score: Math.round(c.behavioral * 100),

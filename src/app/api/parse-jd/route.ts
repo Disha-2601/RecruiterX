@@ -33,7 +33,9 @@ export async function POST(req: Request) {
 
     let tempJdPath = '';
     if (jdFile && jdFile.size > 0) {
-      const jdExt = jdFile.name.endsWith('.docx') ? '.docx' : '.txt';
+      const isDocx = jdFile.name.toLowerCase().endsWith('.docx');
+      const isPdf = jdFile.name.toLowerCase().endsWith('.pdf');
+      const jdExt = isDocx ? '.docx' : isPdf ? '.pdf' : '.txt';
       tempJdPath = path.join(cacheDir, `temp_jd${jdExt}`);
       const jdBuffer = Buffer.from(await jdFile.arrayBuffer());
       fs.writeFileSync(tempJdPath, jdBuffer);
@@ -43,7 +45,7 @@ export async function POST(req: Request) {
     }
 
     // Locate virtual environment Python interpreter
-    const pythonExe = path.join(workDir, '.venv', 'Scripts', 'python.exe');
+    const pythonExe = path.join(workDir, '.venv', 'bin', 'python');
     if (!fs.existsSync(pythonExe)) {
       return NextResponse.json({ error: 'Python interpreter not found' }, { status: 500 });
     }

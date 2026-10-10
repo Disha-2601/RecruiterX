@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "concurrently npm:next-dev npm:fastapi-dev",
     "next-dev": "next dev",
-    "fastapi-dev": "redrob-ranker\\.venv\\Scripts\\python -m uvicorn api.index:app --reload",
+    "fastapi-dev": "redrob-ranker/.venv/bin/python -m uvicorn api.index:app --reload",
     "worker": "./.venv/bin/celery -A api.celery_app worker --loglevel=info -Q parse,analyze,report,priority",
     "build": "next build",
     "start": "next start",

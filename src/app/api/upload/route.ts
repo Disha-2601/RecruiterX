@@ -29,7 +29,9 @@ export async function POST(req: Request) {
     }
 
     // Determine extensions and save names
-    const jdExt = jdFile.name.endsWith('.docx') ? '.docx' : '.txt';
+    const isDocx = jdFile.name.toLowerCase().endsWith('.docx');
+    const isPdf = jdFile.name.toLowerCase().endsWith('.pdf');
+    const jdExt = isDocx ? '.docx' : isPdf ? '.pdf' : '.txt';
     const jdTempPath = path.join(cacheDir, `temp_jd${jdExt}`);
     const candTempPath = path.join(cacheDir, 'temp_candidates.jsonl');
 
@@ -43,7 +45,7 @@ export async function POST(req: Request) {
     }
 
     // Locate the virtual environment Python interpreter
-    const pythonExe = path.join(workDir, '.venv', 'Scripts', 'python.exe');
+    const pythonExe = path.join(workDir, '.venv', 'bin', 'python');
     if (!fs.existsSync(pythonExe)) {
       return NextResponse.json({ error: 'Python virtual environment interpreter not found in redrob-ranker/.venv' }, { status: 500 });
     }

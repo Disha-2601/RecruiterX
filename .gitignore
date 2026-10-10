@@ -48,3 +48,5 @@ docs/given doc/candidates.jsonl
 docs/given doc/sample_candidates.json
 docs/given doc/*.docx
 
+# Cache directories
+cache/

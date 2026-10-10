@@ -1,101 +1,101 @@
 candidate_id,rank,score,reasoning
-CAND_0061257,1,0.700042,Staff Machine Learning Engineer offering 8.0 years experience; key strengths include Machine Learning and Python; highly responsive to recruiters (87%)
-CAND_0037944,2,0.667405,Senior Data Scientist with 4.9 yrs; strong in Machine Learning and Python; marked as actively looking
-CAND_0046064,3,0.665504,Senior NLP Engineer with 8.9 yrs; strong in Python and domain knowledge; highly responsive to recruiters (78%)
-CAND_0081846,4,0.659498,Lead AI Engineer with 6.7 yrs; strong in Python and Machine Learning; prefers remote work
-CAND_0074225,5,0.643729,Experienced Machine Learning Engineer (4.3 yrs); demonstrates strong Python and Machine Learning alignment; notice period is long (120 days)
-CAND_0080766,6,0.627855,Staff Machine Learning Engineer showing 8.8 yrs of history; matches well on Python and domain knowledge; profile is complete and verified
-CAND_0050876,7,0.627422,Applied ML Engineer offering 6.0 years experience; key strengths include Python and Machine Learning; marked as actively looking
-CAND_0088025,8,0.627231,Experienced Staff Machine Learning Engineer (8.6 yrs); demonstrates strong Python and domain knowledge alignment; highly responsive to recruiters (83%)
-CAND_0017960,9,0.626241,Recommendation Systems Engineer offering 7.7 years experience; key strengths include Machine Learning and Python; highly responsive to recruiters (72%)
-CAND_0006567,10,0.625833,Experienced Senior AI Engineer (7.9 yrs); demonstrates strong Python and domain knowledge alignment; highly responsive to recruiters (79%)
-CAND_0055905,11,0.622375,Senior Machine Learning Engineer offering 8.1 years experience; key strengths include Python and domain knowledge; prefers remote work
-CAND_0081686,12,0.621926,Search Engineer with 6.0 yrs; strong in Machine Learning and Python; highly responsive to recruiters (91%)
-CAND_0068351,13,0.616053,Lead AI Engineer with 6.4 yrs; strong in Python and Machine Learning; prefers remote work
-CAND_0057701,14,0.614944,Recommendation Systems Engineer with 4.1 yrs; strong in Python and Machine Learning; notice period is long (120 days)
-CAND_0038571,15,0.602181,Frontend Engineer with 9.9 yrs experience; notable fit on Machine Learning and domain knowledge; notice period is long (120 days)
-CAND_0083476,16,0.599989,.NET Developer with 10.0 yrs; strong in Machine Learning and domain knowledge; prefers remote work
-CAND_0046525,17,0.599864,Experienced Senior Machine Learning Engineer (6.1 yrs); demonstrates strong Machine Learning and domain knowledge alignment; highly responsive to recruiters (88%)
-CAND_0044213,18,0.599277,Experienced AI Specialist (3.7 yrs); demonstrates strong Python and Machine Learning alignment; highly responsive to recruiters (89%)
-CAND_0026373,19,0.596052,Experienced DevOps Engineer (10.0 yrs); demonstrates strong Python and domain knowledge alignment; profile is complete and verified
-CAND_0008425,20,0.593290,Experienced Senior NLP Engineer (7.8 yrs); demonstrates strong Python and domain knowledge alignment; prefers remote work
-CAND_0064326,21,0.593075,Search Engineer showing 7.6 yrs of history; matches well on Python and domain knowledge; highly responsive to recruiters (94%)
-CAND_0098846,22,0.590786,AI Engineer with 7.6 yrs experience; notable fit on Machine Learning and domain knowledge; marked as actively looking
-CAND_0002025,23,0.589629,Senior AI Engineer with 5.9 yrs experience; notable fit on Python and domain knowledge; highly responsive to recruiters (80%)
-CAND_0094685,24,0.588492,AI Research Engineer with 3.5 yrs experience; notable fit on Python and Machine Learning; marked as actively looking
-CAND_0093290,25,0.585915,Experienced Backend Engineer (2.4 yrs); demonstrates strong Python and Machine Learning alignment; marked as actively looking
-CAND_0079821,26,0.581728,QA Engineer with 9.6 yrs; strong in Python and domain knowledge; notice period is long (150 days)
-CAND_0042226,27,0.580944,QA Engineer offering 8.7 years experience; key strengths include Python and domain knowledge; low response rate to recruiters (11%)
-CAND_0077337,28,0.578967,Staff Machine Learning Engineer showing 7.0 yrs of history; matches well on Python and domain knowledge; prefers remote work
-CAND_0044446,29,0.578600,.NET Developer showing 9.7 yrs of history; matches well on Machine Learning and domain knowledge; marked as actively looking
-CAND_0026996,30,0.578110,Java Developer showing 9.9 yrs of history; matches well on Machine Learning and domain knowledge; low response rate to recruiters (12%)
-CAND_0058688,31,0.577347,AI Engineer with 6.7 yrs; strong in Machine Learning and domain knowledge; highly responsive to recruiters (74%)
-CAND_0096747,32,0.576121,Experienced QA Engineer (9.9 yrs); demonstrates strong Python and domain knowledge alignment; profile is complete and verified
-CAND_0017987,33,0.575631,DevOps Engineer offering 9.8 years experience; key strengths include Python and domain knowledge; notice period is long (120 days)
-CAND_0072721,34,0.575225,Data Scientist with 3.7 yrs experience; notable fit on Python and Machine Learning; profile is complete and verified
-CAND_0001388,35,0.574125,Full Stack Developer showing 9.8 yrs of history; matches well on Python and domain knowledge; marked as actively looking
-CAND_0041669,36,0.572992,Recommendation Systems Engineer with 8.0 yrs experience; notable fit on Machine Learning and domain knowledge; highly responsive to recruiters (77%)
-CAND_0048219,37,0.572887,Computer Vision Engineer offering 5.4 years experience; key strengths include Python and Machine Learning; profile is complete and verified
-CAND_0054441,38,0.572816,Java Developer with 7.9 yrs experience; notable fit on Python and Machine Learning; highly responsive to recruiters (78%)
-CAND_0055960,39,0.571987,AI Specialist with 4.9 yrs experience; notable fit on Machine Learning and domain knowledge; prefers remote work
-CAND_0089211,40,0.571434,Experienced AI Specialist (4.4 yrs); demonstrates strong Machine Learning and Python alignment; marked as actively looking
-CAND_0044091,41,0.570907,ML Engineer offering 6.5 years experience; key strengths include Machine Learning and Python; notice period is long (120 days)
-CAND_0067441,42,0.570439,HR Manager with 14.9 yrs; strong in core skills and domain knowledge; highly responsive to recruiters (77%)
-CAND_0041645,43,0.570269,Experienced .NET Developer (10.0 yrs); demonstrates strong Python and domain knowledge alignment; notice period is long (150 days)
-CAND_0005076,44,0.570102,DevOps Engineer with 9.8 yrs; strong in Python and domain knowledge; notice period is long (150 days)
-CAND_0030468,45,0.569854,Experienced Senior Applied Scientist (5.4 yrs); demonstrates strong Machine Learning and domain knowledge alignment; prefers remote work
-CAND_0051936,46,0.569698,Experienced AI Research Engineer (3.9 yrs); demonstrates strong Python and domain knowledge alignment; highly responsive to recruiters (81%)
-CAND_0086801,47,0.569579,Computer Vision Engineer with 6.6 yrs; strong in Machine Learning and Python; notice period is long (120 days)
-CAND_0065393,48,0.569336,Senior Data Engineer offering 6.8 years experience; key strengths include Python and Machine Learning; prefers remote work
-CAND_0036374,49,0.569237,Java Developer offering 9.3 years experience; key strengths include Python and domain knowledge; notice period is long (120 days)
-CAND_0079550,50,0.568859,AI Specialist showing 3.9 yrs of history; matches well on Python and domain knowledge; highly responsive to recruiters (88%)
-CAND_0018722,51,0.568736,Experienced Recommendation Systems Engineer (6.6 yrs); demonstrates strong Python and domain knowledge alignment; highly responsive to recruiters (79%)
-CAND_0083307,52,0.568451,Experienced Search Engineer (7.8 yrs); demonstrates strong Python and domain knowledge alignment; notice period is long (120 days)
-CAND_0089381,53,0.567642,Computer Vision Engineer with 6.0 yrs; strong in Machine Learning and Python; highly responsive to recruiters (81%)
-CAND_0061168,54,0.567396,Experienced Software Engineer (9.3 yrs); demonstrates strong Python and domain knowledge alignment; notice period is long (150 days)
-CAND_0067609,55,0.566903,Junior ML Engineer offering 4.5 years experience; key strengths include Python and domain knowledge; highly responsive to recruiters (85%)
-CAND_0059795,56,0.566724,Senior Software Engineer (ML) with 5.6 yrs; strong in Python and Machine Learning; highly responsive to recruiters (75%)
-CAND_0041753,57,0.565638,Experienced Cloud Engineer (9.8 yrs); demonstrates strong Python and domain knowledge alignment; profile is complete and verified
-CAND_0010147,58,0.565424,Frontend Engineer showing 9.2 yrs of history; matches well on Machine Learning and domain knowledge; highly responsive to recruiters (76%)
-CAND_0058002,59,0.565197,Experienced Graphic Designer (13.8 yrs); demonstrates strong core skills and domain knowledge alignment; highly responsive to recruiters (76%)
-CAND_0087225,60,0.564726,Frontend Engineer showing 9.2 yrs of history; matches well on Machine Learning and domain knowledge; highly responsive to recruiters (76%)
-CAND_0085347,61,0.564588,Project Manager offering 13.2 years experience; key strengths include core skills and domain knowledge; highly responsive to recruiters (75%)
-CAND_0096142,62,0.564510,Applied ML Engineer offering 5.0 years experience; key strengths include Python and domain knowledge; notice period is long (120 days)
-CAND_0020991,63,0.564381,Junior ML Engineer with 4.9 yrs; strong in Python and domain knowledge; notice period is long (120 days)
-CAND_0051843,64,0.564007,Sales Executive showing 14.3 yrs of history; matches well on core skills and domain knowledge; highly responsive to recruiters (76%)
-CAND_0039754,65,0.563631,Experienced Senior Applied Scientist (16.2 yrs); demonstrates strong Machine Learning and Python alignment; note: mismatch between stated experience and career history duration
-CAND_0031519,66,0.562914,.NET Developer showing 9.7 yrs of history; matches well on Python and domain knowledge; notice period is long (120 days)
-CAND_0089198,67,0.562603,Full Stack Developer with 8.6 yrs experience; notable fit on Python and Machine Learning; low response rate to recruiters (9%)
-CAND_0045887,68,0.562438,Data Scientist showing 3.0 yrs of history; matches well on Machine Learning and domain knowledge; highly responsive to recruiters (86%)
-CAND_0076895,69,0.562183,Full Stack Developer with 9.3 yrs experience; notable fit on Python and domain knowledge; notice period is long (120 days)
-CAND_0060290,70,0.561972,.NET Developer showing 9.9 yrs of history; matches well on Python and domain knowledge; prefers remote work
-CAND_0029266,71,0.561094,Mechanical Engineer showing 11.3 yrs of history; matches well on core skills and domain knowledge; marked as actively looking
-CAND_0003769,72,0.560851,QA Engineer offering 9.5 years experience; key strengths include Machine Learning and domain knowledge; marked as actively looking
-CAND_0078545,73,0.560820,Software Engineer offering 9.5 years experience; key strengths include Machine Learning and domain knowledge; profile is complete and verified
-CAND_0004299,74,0.560679,Experienced DevOps Engineer (9.9 yrs); demonstrates strong Python and domain knowledge alignment; highly responsive to recruiters (78%)
-CAND_0086902,75,0.560302,.NET Developer with 9.5 yrs experience; notable fit on Machine Learning and domain knowledge; marked as actively looking
-CAND_0010910,76,0.559956,Frontend Engineer with 9.7 yrs experience; notable fit on Python and domain knowledge; marked as actively looking
-CAND_0081053,77,0.559011,NLP Engineer with 5.4 yrs; strong in Machine Learning and domain knowledge; highly responsive to recruiters (83%)
-CAND_0048572,78,0.558749,Experienced .NET Developer (9.3 yrs); demonstrates strong Python and domain knowledge alignment; prefers remote work
-CAND_0034923,79,0.558240,Software Engineer with 9.7 yrs; strong in Python and domain knowledge; highly responsive to recruiters (77%)
-CAND_0012112,80,0.557984,Graphic Designer with 14.5 yrs experience; notable fit on core skills and domain knowledge; marked as actively looking
-CAND_0030784,81,0.557958,Data Scientist showing 4.4 yrs of history; matches well on Python and domain knowledge; highly responsive to recruiters (90%)
-CAND_0034400,82,0.556853,ML Engineer with 3.8 yrs experience; notable fit on Machine Learning and Python; notice period is long (120 days)
-CAND_0059017,83,0.556547,AI Research Engineer with 6.8 yrs; strong in Python and Machine Learning; highly responsive to recruiters (75%)
-CAND_0044540,84,0.556420,Sales Executive with 11.6 yrs; strong in core skills and domain knowledge; highly responsive to recruiters (71%)
-CAND_0043190,85,0.556328,Accountant with 13.6 yrs; strong in core skills and domain knowledge; prefers remote work
-CAND_0003977,86,0.556290,Recommendation Systems Engineer offering 4.6 years experience; key strengths include Python and Machine Learning; prefers remote work
-CAND_0026124,87,0.556280,Experienced Marketing Manager (11.2 yrs); demonstrates strong core skills and domain knowledge alignment; prefers remote work
-CAND_0091908,88,0.556181,Senior Software Engineer with 2.1 yrs experience; notable fit on Python and Machine Learning; prefers remote work
-CAND_0028895,89,0.555572,Mechanical Engineer showing 11.2 yrs of history; matches well on core skills and domain knowledge; notice period is long (120 days)
-CAND_0007009,90,0.555353,Recommendation Systems Engineer offering 7.9 years experience; key strengths include Python and domain knowledge; prefers remote work
-CAND_0098554,91,0.555235,Operations Manager with 12.1 yrs experience; notable fit on core skills and domain knowledge; marked as actively looking
-CAND_0058300,92,0.554997,AI Research Engineer offering 4.5 years experience; key strengths include Machine Learning and Python; marked as actively looking
-CAND_0066369,93,0.554860,Frontend Engineer showing 9.3 yrs of history; matches well on Python and domain knowledge; notice period is long (120 days)
-CAND_0072558,94,0.554808,Mobile Developer with 9.8 yrs; strong in Python and domain knowledge; notice period is long (120 days)
-CAND_0017976,95,0.554490,Marketing Manager with 13.6 yrs experience; notable fit on core skills and domain knowledge; marked as actively looking
-CAND_0086572,96,0.554454,Frontend Engineer showing 9.8 yrs of history; matches well on Python and domain knowledge; highly responsive to recruiters (72%)
-CAND_0021442,97,0.554344,AI Specialist with 3.9 yrs; strong in Python and domain knowledge; marked as actively looking
-CAND_0061084,98,0.553975,Java Developer showing 9.8 yrs of history; matches well on Python and domain knowledge; notice period is long (120 days)
-CAND_0003791,99,0.553485,ML Engineer with 6.6 yrs experience; notable fit on Python and domain knowledge; marked as actively looking
-CAND_0038305,100,0.553137,Experienced HR Manager (13.0 yrs); demonstrates strong core skills and domain knowledge alignment; marked as actively looking
+CAND_0075481,1,0.611498,AI Research Engineer showing 3.9 yrs of history; matches well on CSS and domain knowledge; highly responsive to recruiters (88%)
+CAND_0010361,2,0.604173,Software Engineer with 3.0 yrs experience; notable fit on CSS and REST APIs; highly responsive to recruiters (70%)
+CAND_0059102,3,0.601694,Frontend Engineer with 3.1 yrs experience; notable fit on REST APIs and domain knowledge; marked as actively looking
+CAND_0075763,4,0.599432,Full Stack Developer with 1.3 yrs experience; notable fit on HTML and JavaScript; highly responsive to recruiters (81%)
+CAND_0032485,5,0.599022,Experienced Software Engineer (1.6 yrs); demonstrates strong React and domain knowledge alignment; marked as actively looking
+CAND_0085184,6,0.598909,Full Stack Developer offering 1.6 years experience; key strengths include HTML and JavaScript; marked as actively looking
+CAND_0071030,7,0.597021,Experienced Cloud Engineer (1.5 yrs); demonstrates strong CSS and domain knowledge alignment; low response rate to recruiters (16%)
+CAND_0093290,8,0.595084,Experienced Backend Engineer (2.4 yrs); demonstrates strong JavaScript and HTML alignment; marked as actively looking
+CAND_0015899,9,0.592468,Software Engineer showing 2.9 yrs of history; matches well on CSS and domain knowledge; marked as actively looking
+CAND_0071787,10,0.592195,Frontend Engineer offering 1.9 years experience; key strengths include CSS and domain knowledge; marked as actively looking
+CAND_0049297,11,0.591231,DevOps Engineer with 2.6 yrs; strong in CSS and React; marked as actively looking
+CAND_0034104,12,0.591132,QA Engineer with 2.3 yrs experience; notable fit on HTML and CSS; prefers remote work
+CAND_0075492,13,0.590325,.NET Developer offering 1.3 years experience; key strengths include core skills and domain knowledge; notice period is long (120 days)
+CAND_0083608,14,0.589856,Mobile Developer showing 1.1 yrs of history; matches well on core skills and domain knowledge; highly responsive to recruiters (73%)
+CAND_0019751,15,0.587330,Cloud Engineer with 2.2 yrs; strong in React and REST APIs; marked as actively looking
+CAND_0034703,16,0.586632,Mobile Developer with 1.5 yrs experience; notable fit on HTML and REST APIs; notice period is long (120 days)
+CAND_0031789,17,0.586609,DevOps Engineer with 2.9 yrs experience; notable fit on REST APIs and CSS; low response rate to recruiters (16%)
+CAND_0063736,18,0.586536,Data Scientist with 3.7 yrs; strong in core skills and domain knowledge; highly responsive to recruiters (83%)
+CAND_0092843,19,0.586367,Java Developer with 1.1 yrs; strong in core skills and domain knowledge; marked as actively looking
+CAND_0058560,20,0.586335,Experienced Full Stack Developer (4.5 yrs); demonstrates strong React and CSS alignment; marked as actively looking
+CAND_0029978,21,0.585969,Java Developer with 1.5 yrs experience; notable fit on core skills and domain knowledge; prefers remote work
+CAND_0012755,22,0.585857,Full Stack Developer with 1.1 yrs experience; notable fit on JavaScript and domain knowledge; highly responsive to recruiters (84%)
+CAND_0004253,23,0.585122,Mobile Developer offering 1.6 years experience; key strengths include core skills and domain knowledge; marked as actively looking
+CAND_0010123,24,0.584851,Cloud Engineer showing 1.3 yrs of history; matches well on REST APIs and domain knowledge; notice period is long (120 days)
+CAND_0066465,25,0.584290,Experienced Frontend Engineer (2.5 yrs); demonstrates strong CSS and domain knowledge alignment; highly responsive to recruiters (74%)
+CAND_0062658,26,0.583913,Junior ML Engineer with 4.2 yrs experience; notable fit on CSS and domain knowledge; highly responsive to recruiters (81%)
+CAND_0013694,27,0.583881,DevOps Engineer showing 1.3 yrs of history; matches well on HTML and domain knowledge; low response rate to recruiters (17%)
+CAND_0083947,28,0.583274,Experienced Full Stack Developer (2.3 yrs); demonstrates strong core skills and domain knowledge alignment; low response rate to recruiters (19%)
+CAND_0051936,29,0.583079,Experienced AI Research Engineer (3.9 yrs); demonstrates strong CSS and domain knowledge alignment; highly responsive to recruiters (81%)
+CAND_0051550,30,0.582477,.NET Developer showing 1.0 yrs of history; matches well on core skills and domain knowledge; marked as actively looking
+CAND_0091688,31,0.582179,Full Stack Developer offering 1.4 years experience; key strengths include React and domain knowledge; profile is complete and verified
+CAND_0068513,32,0.581854,Computer Vision Engineer with 4.0 yrs; strong in core skills and domain knowledge; highly responsive to recruiters (80%)
+CAND_0023713,33,0.581763,DevOps Engineer with 2.4 yrs; strong in core skills and domain knowledge; highly responsive to recruiters (80%)
+CAND_0060103,34,0.581305,Experienced DevOps Engineer (3.6 yrs); demonstrates strong CSS and domain knowledge alignment; highly responsive to recruiters (83%)
+CAND_0046773,35,0.581179,Cloud Engineer showing 1.8 yrs of history; matches well on React and domain knowledge; prefers remote work
+CAND_0053221,36,0.580689,Java Developer showing 1.6 yrs of history; matches well on HTML and domain knowledge; prefers remote work
+CAND_0070514,37,0.580383,Experienced AI Specialist (5.5 yrs); demonstrates strong core skills and domain knowledge alignment; highly responsive to recruiters (80%)
+CAND_0033746,38,0.580333,Senior Data Engineer with 3.0 yrs experience; notable fit on CSS and domain knowledge; marked as actively looking
+CAND_0054898,39,0.580121,Full Stack Developer offering 2.2 years experience; key strengths include core skills and domain knowledge; marked as actively looking
+CAND_0020775,40,0.579984,Full Stack Developer with 2.4 yrs experience; notable fit on JavaScript and domain knowledge; notice period is long (120 days)
+CAND_0013191,41,0.579932,.NET Developer with 1.7 yrs experience; notable fit on CSS and JavaScript; notice period is long (120 days)
+CAND_0058432,42,0.579825,Senior Software Engineer with 3.1 yrs experience; notable fit on core skills and domain knowledge; highly responsive to recruiters (71%)
+CAND_0060312,43,0.579652,.NET Developer showing 3.2 yrs of history; matches well on core skills and domain knowledge; marked as actively looking
+CAND_0071924,44,0.579608,Experienced DevOps Engineer (1.9 yrs); demonstrates strong React and domain knowledge alignment; marked as actively looking
+CAND_0054318,45,0.579145,Experienced AI Research Engineer (3.5 yrs); demonstrates strong HTML and domain knowledge alignment; highly responsive to recruiters (87%)
+CAND_0034164,46,0.578970,Data Scientist showing 3.6 yrs of history; matches well on core skills and domain knowledge; highly responsive to recruiters (84%)
+CAND_0045619,47,0.578869,Experienced Full Stack Developer (2.9 yrs); demonstrates strong REST APIs and CSS alignment; notice period is long (120 days)
+CAND_0041079,48,0.578869,Experienced Java Developer (1.5 yrs); demonstrates strong React and domain knowledge alignment; notice period is long (150 days)
+CAND_0085335,49,0.578685,Experienced ML Engineer (3.1 yrs); demonstrates strong core skills and domain knowledge alignment; notice period is long (120 days)
+CAND_0083790,50,0.578417,Data Scientist showing 3.5 yrs of history; matches well on core skills and domain knowledge; notice period is long (120 days)
+CAND_0044213,51,0.578344,Experienced AI Specialist (3.7 yrs); demonstrates strong core skills and domain knowledge alignment; highly responsive to recruiters (89%)
+CAND_0056977,52,0.578258,DevOps Engineer offering 2.1 years experience; key strengths include JavaScript and domain knowledge; notice period is long (150 days)
+CAND_0058931,53,0.578169,Frontend Engineer with 1.5 yrs experience; notable fit on HTML and domain knowledge; highly responsive to recruiters (77%)
+CAND_0073866,54,0.577985,Software Engineer with 1.7 yrs experience; notable fit on core skills and domain knowledge; low response rate to recruiters (12%)
+CAND_0073809,55,0.577811,Backend Engineer offering 2.8 years experience; key strengths include core skills and domain knowledge; highly responsive to recruiters (80%)
+CAND_0069347,56,0.577711,Data Engineer offering 2.3 years experience; key strengths include HTML and JavaScript; marked as actively looking
+CAND_0039925,57,0.577621,Frontend Engineer with 2.3 yrs; strong in core skills and domain knowledge; marked as actively looking
+CAND_0090844,58,0.577616,Senior Software Engineer offering 2.9 years experience; key strengths include core skills and domain knowledge; marked as actively looking
+CAND_0096369,59,0.577357,Full Stack Developer offering 1.4 years experience; key strengths include REST APIs and domain knowledge; highly responsive to recruiters (81%)
+CAND_0093749,60,0.577132,Full Stack Developer showing 2.2 yrs of history; matches well on REST APIs and domain knowledge; marked as actively looking
+CAND_0070965,61,0.577087,Software Engineer with 1.9 yrs; strong in React and CSS; marked as actively looking
+CAND_0058438,62,0.576782,Full Stack Developer with 1.8 yrs; strong in REST APIs and domain knowledge; highly responsive to recruiters (70%)
+CAND_0046132,63,0.576768,AI Research Engineer with 4.3 yrs experience; notable fit on core skills and domain knowledge; highly responsive to recruiters (94%)
+CAND_0005038,64,0.576577,.NET Developer showing 1.4 yrs of history; matches well on JavaScript and domain knowledge; highly responsive to recruiters (80%)
+CAND_0034177,65,0.576380,Experienced Senior Software Engineer (ML) (3.6 yrs); demonstrates strong HTML and domain knowledge alignment; highly responsive to recruiters (82%)
+CAND_0045887,66,0.576345,Data Scientist showing 3.0 yrs of history; matches well on core skills and domain knowledge; highly responsive to recruiters (86%)
+CAND_0047660,67,0.576115,Senior Data Engineer showing 3.1 yrs of history; matches well on React and domain knowledge; marked as actively looking
+CAND_0035179,68,0.575718,Frontend Engineer with 1.4 yrs; strong in REST APIs and domain knowledge; highly responsive to recruiters (74%)
+CAND_0073256,69,0.575670,Experienced QA Engineer (1.3 yrs); demonstrates strong CSS and domain knowledge alignment; highly responsive to recruiters (75%)
+CAND_0004969,70,0.575564,Cloud Engineer showing 2.4 yrs of history; matches well on React and domain knowledge; marked as actively looking
+CAND_0081872,71,0.574916,Experienced Full Stack Developer (1.2 yrs); demonstrates strong core skills and domain knowledge alignment; low response rate to recruiters (16%)
+CAND_0029385,72,0.574603,Sales Executive with 2.0 yrs experience; notable fit on React and domain knowledge; prefers remote work
+CAND_0031184,73,0.574007,DevOps Engineer with 3.3 yrs; strong in React and JavaScript; highly responsive to recruiters (85%)
+CAND_0043319,74,0.573983,.NET Developer with 3.2 yrs; strong in REST APIs and domain knowledge; marked as actively looking
+CAND_0011200,75,0.573896,Experienced Mobile Developer (1.2 yrs); demonstrates strong HTML and domain knowledge alignment; marked as actively looking
+CAND_0024486,76,0.573846,.NET Developer with 1.8 yrs experience; notable fit on JavaScript and HTML; marked as actively looking
+CAND_0032543,77,0.573781,Cloud Engineer with 1.1 yrs experience; notable fit on React and domain knowledge; notice period is long (120 days)
+CAND_0040483,78,0.573564,Mobile Developer showing 1.9 yrs of history; matches well on HTML and JavaScript; prefers remote work
+CAND_0085870,79,0.573265,QA Engineer offering 1.2 years experience; key strengths include CSS and HTML; low response rate to recruiters (19%)
+CAND_0032891,80,0.573229,Experienced Full Stack Developer (1.6 yrs); demonstrates strong core skills and domain knowledge alignment; notice period is long (150 days)
+CAND_0015522,81,0.573212,Backend Engineer with 2.3 yrs experience; notable fit on React and domain knowledge; highly responsive to recruiters (81%)
+CAND_0051596,82,0.573199,.NET Developer with 2.4 yrs; strong in JavaScript and React; highly responsive to recruiters (72%)
+CAND_0059377,83,0.573010,Full Stack Developer offering 2.0 years experience; key strengths include core skills and domain knowledge; marked as actively looking
+CAND_0015441,84,0.573002,Cloud Engineer offering 2.8 years experience; key strengths include React and REST APIs; notice period is long (150 days)
+CAND_0020991,85,0.572980,Junior ML Engineer with 4.9 yrs; strong in core skills and domain knowledge; notice period is long (120 days)
+CAND_0030880,86,0.572858,Senior Software Engineer offering 2.4 years experience; key strengths include core skills and domain knowledge; highly responsive to recruiters (78%)
+CAND_0092343,87,0.572710,DevOps Engineer offering 1.8 years experience; key strengths include React and HTML; marked as actively looking
+CAND_0073204,88,0.572700,Senior Software Engineer (ML) with 3.4 yrs experience; notable fit on core skills and domain knowledge; notice period is long (120 days)
+CAND_0038635,89,0.572638,Mobile Developer showing 1.7 yrs of history; matches well on core skills and domain knowledge; marked as actively looking
+CAND_0091096,90,0.572606,Mobile Developer with 1.0 yrs experience; notable fit on core skills and domain knowledge; notice period is long (120 days)
+CAND_0032286,91,0.572445,Experienced Senior Data Engineer (3.2 yrs); demonstrates strong React and domain knowledge alignment; highly responsive to recruiters (73%)
+CAND_0093337,92,0.572341,Sales Executive with 1.7 yrs; strong in React and domain knowledge; notice period is long (150 days)
+CAND_0026492,93,0.572290,Software Engineer offering 2.2 years experience; key strengths include JavaScript and CSS; highly responsive to recruiters (81%)
+CAND_0083651,94,0.572284,QA Engineer with 1.5 yrs experience; notable fit on core skills and domain knowledge; notice period is long (120 days)
+CAND_0087494,95,0.572263,ML Engineer with 3.4 yrs experience; notable fit on React and JavaScript; marked as actively looking
+CAND_0064988,96,0.572179,DevOps Engineer showing 2.4 yrs of history; matches well on core skills and domain knowledge; marked as actively looking
+CAND_0019814,97,0.572170,Frontend Engineer with 1.6 yrs; strong in core skills and domain knowledge; marked as actively looking
+CAND_0087827,98,0.572084,Cloud Engineer offering 1.6 years experience; key strengths include HTML and domain knowledge; highly responsive to recruiters (77%)
+CAND_0096209,99,0.571903,ML Engineer with 4.2 yrs experience; notable fit on JavaScript and domain knowledge; highly responsive to recruiters (90%)
+CAND_0034506,100,0.571887,Java Developer with 1.6 yrs experience; notable fit on CSS and domain knowledge; low response rate to recruiters (15%)

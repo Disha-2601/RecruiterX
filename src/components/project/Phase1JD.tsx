@@ -262,7 +262,7 @@ export default function Phase1JD() {
             )}
           </div>
           <span className="text-xs font-medium text-[#4A4A4A] group-hover:text-[#0A0A0A] transition-colors">
-            Use the demo JD (Redrob Senior AI/ML Engineer role)
+            Use the demo JD (Sample Senior AI/ML Engineer role)
           </span>
         </label>
         {jdIsDemo && (

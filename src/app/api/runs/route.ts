@@ -81,7 +81,7 @@ async function runPipelineInBackground(
   };
 
   try {
-    const pythonExe = path.join(workDir, '.venv', 'Scripts', 'python.exe');
+    const pythonExe = path.join(workDir, '.venv', 'bin', 'python');
     if (!fs.existsSync(pythonExe)) {
       throw new Error(`Python interpreter not found at ${pythonExe}`);
     }
@@ -145,7 +145,7 @@ async function runPipelineInBackground(
         project_id: projectId,
         org_id: project.org_id,
         name: c.anonymized_name || c.candidate_id,
-        email: `${c.candidate_id.toLowerCase()}@redrob.local`,
+        email: `${c.candidate_id.toLowerCase()}@sample.local`,
         resume_file_url: '#',
         trajectory_score: Math.round(c.experience_fit * 100),
         behaviour_score: Math.round(c.behavioral * 100),

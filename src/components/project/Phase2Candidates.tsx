@@ -85,7 +85,7 @@ export default function Phase2Candidates() {
             Add your candidate pool
           </h2>
           <p className="font-body text-sm text-[#4A4A4A] mt-2">
-            Upload a candidate dataset or use the precomputed 100K Redrob pool.
+            Upload a candidate dataset or use the precomputed 100K sample pool.
           </p>
         </div>
 
@@ -113,7 +113,7 @@ export default function Phase2Candidates() {
               )}
             </div>
             <span className="text-xs font-semibold text-[#4A4A4A] group-hover:text-[#0A0A0A] transition-colors">
-              Use the demo candidate pool (100,000 Redrob candidates — precomputed)
+              Use the demo candidate pool (100,000 sample candidates — precomputed)
             </span>
           </label>
           {candidatesIsDemo && (
@@ -180,7 +180,7 @@ export default function Phase2Candidates() {
                       Your file has been received. Processing a new candidate pool requires an offline embedding + indexing step (~20–30 min for 100K candidates) that runs outside this app.
                     </p>
                     <p className="text-[#4A4A4A] font-medium">
-                      For this session, ranking will run against the precomputed 100K Redrob dataset.
+                      For this session, ranking will run against the precomputed 100K sample dataset.
                     </p>
                   </div>
                 </div>
