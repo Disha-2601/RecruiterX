@@ -55,6 +55,13 @@ RecruiterX is a state-of-the-art candidate evaluation and talent ranking platfor
 
 ---
 
+### 8. Deep-Dive Candidate Evaluation & Score Breakdown
+![Candidate Evaluation Breakdown](docs/images/candidate_details_breakdown.png)
+* **Granular Score Breakdown**: Multi-dimensional radar metrics covering Skill Match, Experience Fit, Behavioral Fit, Education Match, and Logistics Fit.
+* **AI Narrative Audit & Signals**: Provides instant qualitative audit notes, consistency flag badges (`✓ No consistency flags`), and logistical indicators (location, notice period, work mode).
+
+---
+
 ## 🛠️ Architecture Overview
 
 ```
