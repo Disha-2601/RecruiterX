@@ -43,6 +43,13 @@ RecruiterX is a state-of-the-art candidate evaluation and talent ranking platfor
 
 ---
 
+### 6. Ranked Candidate Shortlist & Exportable Leaderboard
+![Ranked Candidate Shortlist](docs/images/candidate_ranking_leaderboard.png)
+* **Vectorized Shortlist Generation**: Displays ranked candidates with fit scores, anonymized IDs, experience levels, and current roles.
+* **One-Click Export**: Allows recruiters to download the shortlisted candidate scores as a formatted `.csv` submission file.
+
+---
+
 ## 🛠️ Architecture Overview
 
 ```
