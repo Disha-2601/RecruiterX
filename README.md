@@ -41,9 +41,14 @@ RecruiterX is a state-of-the-art candidate evaluation and talent ranking platfor
 * **Multi-Format Ingestion**: Drag-and-drop support for `.pdf`, `.docx`, `.md`, and `.txt` job description files.
 * **Automated Feature Extraction**: Instantly extracts required skills, nice-to-have skills, experience ranges, salary bands, locations, and work modes.
 
+### 6. Candidate Pool Selection & Pipeline Execution
+![Candidate Pool Selection & Pipeline Execution](docs/images/candidate_pool_pipeline_config.png)
+* **Dataset Selection**: Step 3 of project setup — choose between custom candidate uploads or precomputed 100K datasets.
+* **Pipeline Configuration Modes**: Select execution mode (`Ranking only ~30s`, `Re-embedding JD ~45s`, or `Full re-indexing`) and trigger the automated evaluation run.
+
 ---
 
-### 6. Ranked Candidate Shortlist & Exportable Leaderboard
+### 7. Ranked Candidate Shortlist & Exportable Leaderboard
 ![Ranked Candidate Shortlist](docs/images/candidate_ranking_leaderboard.png)
 * **Vectorized Shortlist Generation**: Displays ranked candidates with fit scores, anonymized IDs, experience levels, and current roles.
 * **One-Click Export**: Allows recruiters to download the shortlisted candidate scores as a formatted `.csv` submission file.
